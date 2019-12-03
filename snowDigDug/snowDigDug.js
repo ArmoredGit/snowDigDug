@@ -48,7 +48,23 @@ function draw() {
     }
   }
   
+  player1.show();
+  
   //for(let i = 0; i < 14;i++){
     //snowflakeArray[i].show();
   //}
+}
+
+function mouseDragged() {
+  //(mouseY - pmouseY)
+  //(mouseX - pmouseX)
+  if((mouseY - pmouseY) > height / 40 ){
+    player1.move(3);
+  } else if((pmouseY - mouseY) > height / 40 ){
+    player1.move(1);
+  } else if((mouseX - pmouseX) > width / 40 ){
+    player1.move(2);
+  } else if((pmouseX - mouseX) > width / 40 ){
+    player1.move(4);
+  }
 }
