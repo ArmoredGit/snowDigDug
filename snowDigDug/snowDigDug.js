@@ -1,5 +1,6 @@
 var snowflakeArray;
 var snowBlockArray;
+var player1;
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 
 function setup() {
@@ -29,6 +30,7 @@ function setup() {
   snowBlockArray[5][6].fill = false;
   snowBlockArray[5][6].right = false;
   
+  player1 = new Player(6,6);
   
   //for(let i = 0; i < 14;i++){
    // snowflakeArray[i] = new Snowflake(random(0,width),0);
