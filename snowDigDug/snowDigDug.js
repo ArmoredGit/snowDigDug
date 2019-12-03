@@ -13,6 +13,23 @@ function setup() {
     }
   }
   
+  for(let i = 0; i < 6;i++){
+    snowBlockArray[6][i].fill = false;
+    snowBlockArray[6][i].up = false;
+    snowBlockArray[6][i].down = false;
+  }
+  
+  snowBlockArray[6][6].fill = false;
+  snowBlockArray[6][6].up = false;
+  snowBlockArray[6][6].down = false;
+  snowBlockArray[6][6].left = false;
+  snowBlockArray[6][6].right = false;
+  snowBlockArray[7][6].fill = false;
+  snowBlockArray[7][6].left = false;
+  snowBlockArray[5][6].fill = false;
+  snowBlockArray[5][6].right = false;
+  
+  
   //for(let i = 0; i < 14;i++){
    // snowflakeArray[i] = new Snowflake(random(0,width),0);
   //}
