@@ -14,45 +14,61 @@ class Player  {
   move(direction){
     //direction is 1 == up,2 == right,3 == down,4 == left
     if(direction == 1){
-      if(round((this.x * 100) % 100) == 0){
+      if(round((this.x * 100)) % 100 == 0){
         this.y -= 0.1;
       } else {
         if((this.x * 100) % 100 > 50){
           this.x += 0.1;
         } else {
-          this.x += 0.1;
+          this.x -= 0.1;
         }
       }
     } else if(direction == 2){
-      if(round((this.y * 100) % 100) == 0){
-        this.x -= 0.1;
+      if(round((this.y * 100)) % 100 == 0){
+        this.x += 0.1;
       } else {
         if((this.y * 100) % 100 > 50){
           this.y += 0.1;
         } else {
-          this.y += 0.1;
+          this.y -= 0.1;
         }
       }
     } else if(direction == 3){
-      if(round((this.x * 100) % 100) == 0){
+      if(round((this.x * 100)) % 100 == 0){
         this.y += 0.1;
       } else {
         if((this.x * 100) % 100 > 50){
           this.x += 0.1;
         } else {
-          this.x += 0.1;
+          this.x -= 0.1;
         }
       }
     } else if(direction == 4){
-      if(round((this.y * 100) % 100) == 0){
+      if(round((this.y * 100)) % 100 == 0){
         this.x -= 0.1;
       } else {
         if((this.y * 100) % 100 > 50){
           this.y += 0.1;
         } else {
-          this.y += 0.1;
+          this.y -= 0.1;
         }
       }
+    }
+    
+    if(this.x > 13) {
+      this.x = 13;
+    } else if(this.x < 0) {
+      this.x = 0;
+    } else if(this.y < 0) {
+      this.y = 0;
+    } else if(this.y > 13) {
+      this.y = 13;
+    } 
+    
+    if(round((this.y * 100)) % 100 == 50){
+      
+    } else if(round((this.x * 100)) % 100 == 50){
+      
     }
   }
 }
