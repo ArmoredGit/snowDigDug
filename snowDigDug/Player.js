@@ -66,15 +66,15 @@ class Player  {
     } 
     
     if(round((this.y * 100)) % 100 == 50){
-      snowBlockArray[this.x][floor(this.y)].fill = false;
-      snowBlockArray[this.x][floor(this.y)].down = false;
-      snowBlockArray[this.x][ceil(this.y)].fill = false;
-      snowBlockArray[this.x][ceil(this.y)].up = false;
+      snowBlockArray[round(this.x)][floor(this.y)].fill = false;
+      snowBlockArray[round(this.x)][floor(this.y)].down = false;
+      snowBlockArray[round(this.x)][ceil(this.y)].fill = false;
+      snowBlockArray[round(this.x)][ceil(this.y)].up = false;
     } else if(round((this.x * 100)) % 100 == 50){
-      snowBlockArray[floor(this.x)][this.y].fill = false;
-      snowBlockArray[floor(this.x)][this.y].right = false;
-      snowBlockArray[ceil(this.x)][this.y].fill = false;
-      snowBlockArray[ceil(this.x)][this.y].left = false;
+      snowBlockArray[floor(this.x)][round(this.y)].fill = false;
+      snowBlockArray[floor(this.x)][round(this.y)].right = false;
+      snowBlockArray[ceil(this.x)][round(this.y)].fill = false;
+      snowBlockArray[ceil(this.x)][round(this.y)].left = false;
     }
   }
 }
