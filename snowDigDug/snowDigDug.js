@@ -42,6 +42,10 @@ function setup() {
 
 function draw() {
   background(31, 17, 120);
+  for(let i = 0; i < 200;i++){
+    snowflakeArray[i].show();
+    snowflakeArray[i].move();
+  }
   noStroke();
   fill(0);
   rect(14 * width / 18, 0, 4 * width / 18, height);
@@ -49,10 +53,6 @@ function draw() {
     for(let j = 0; j < 14;j++){
       snowBlockArray[i][j].show();
     }
-  }
-  for(let i = 0; i < 200;i++){
-    snowflakeArray[i].show();
-    snowflakeArray[i].move();
   }
   player1.show();
 }
