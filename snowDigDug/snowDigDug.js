@@ -1,6 +1,7 @@
 var snowflakeArray;
 var snowBlockArray;
 var player1;
+var testRock;
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
 
@@ -37,6 +38,7 @@ function setup() {
   snowBlockArray[5][6].right = false;
   
   player1 = new Player(6,6);
+  testRock = new Obstacle(null,7,7);
 }
 
 
@@ -55,6 +57,8 @@ function draw() {
     }
   }
   player1.show();
+  testRock.show();
+  testRock.move();
 }
 
 function mouseDragged() {
