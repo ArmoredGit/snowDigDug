@@ -28,7 +28,7 @@ class Obstacle {
           }
         }
       } else if(this.special){
-        if(this.tic > 21){//keep time odd or program breaks
+        if(this.tic > 21){ //keep time odd or program breaks
           this.y+= 0.1;
           if(this.y < 13){
             if(round(this.y * 100) % 100 == 50){
