@@ -2,7 +2,7 @@ class Obstacle {
   //Obstacles include the two enemy types and rocks
   //all Obstacles havwe a move and show
   //move includes wandering, running away, and chasing the player
-  //
+  //types are rock drg & puf
   constructor(type,x,y) {
     this.type = type;
     if(type == null){
@@ -15,7 +15,11 @@ class Obstacle {
   }
   
   move(){
-    if(this.type == "rock"){
+    if(this.type == "drg"){
+      
+    } else if(this.type == "puf"){
+      
+    } else if(this.type == "rock"){
       if(this.special == false){
         if(this.y < 13){
           if(!snowBlockArray[round(this.x)][round(this.y + 1)].fill && dist(this.x,(this.y + 1),player1.x,player1.y) > 0.9){
@@ -24,7 +28,7 @@ class Obstacle {
           }
         }
       } else if(this.special){
-        if(this.tic > 21){
+        if(this.tic > 21){//keep time odd or program breaks
           this.y+= 0.1;
           if(this.y < 13){
             if(round(this.y * 100) % 100 == 50){
@@ -54,12 +58,29 @@ class Obstacle {
   }
   
   show(){
-    if(this.type == "rock"){
+    if(this.type == "drg") {
+      if(snowBlockArray[round(this.x)][round(this.y)].fill){
+        fill("green");
+        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+      } else {
+        fill("green");
+        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+      }
+    } else if(this.type == "puf") {
+      if(snowBlockArray[round(this.x)][round(this.y)].fill){
+        fill("red");
+        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+      } else {
+        fill("red");
+        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+      }
+    } else if(this.type == "rock") {
       fill("grey");
       if(this.special){
         fill(255);
       }
       rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+      
     }
   }
 }
