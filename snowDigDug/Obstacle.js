@@ -30,6 +30,10 @@ class Obstacle {
       
       //changing direction
       if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
+        this.dir--;
+        if(this.dir == 0){
+          this.dir = 4;
+        }
         while(true){
           if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
             this.dir++;
