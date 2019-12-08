@@ -40,15 +40,7 @@ function setup() {
   
   player1 = new Player(6,6);
   
-  
-  obs.push(new Obstacle("rock",4,2));
-  obs.push(new Obstacle("rock",10,8));
-  obs.push(new Obstacle("rock",3,10));
-  obs.push(new Obstacle("puf",1,2));
-  obs.push(new Obstacle("puf",10,1));
-  obs.push(new Obstacle("puf",9,10));
-  obs.push(new Obstacle("drg",4,9));
-  
+  //level 1 code
   snowBlockArray[1][1].fill = false;
   snowBlockArray[1][1].down = false;
   snowBlockArray[1][2].up = false;
@@ -99,6 +91,15 @@ function setup() {
   snowBlockArray[9][11].down = false;
   snowBlockArray[9][12].up = false;
   snowBlockArray[9][12].fill = false;
+  
+  obs.push(new Obstacle("rock",4,2));
+  obs.push(new Obstacle("rock",10,8));
+  obs.push(new Obstacle("rock",3,10));
+  obs.push(new Obstacle("puf",1,2));
+  obs.push(new Obstacle("puf",10,1));
+  obs.push(new Obstacle("puf",9,10));
+  obs.push(new Obstacle("drg",4,9));
+  //end level 1 code
 }
 
 
@@ -118,6 +119,7 @@ function draw() {
   }
   player1.show();
   obs.forEach(x => x.show());
+  obs.forEach(x => x.move());
 }
 
 function mouseDragged() {

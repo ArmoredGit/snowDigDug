@@ -13,6 +13,7 @@ class Player  {
   
   move(direction){
     //direction is 1 == up,2 == right,3 == down,4 == left
+    //actual movement
     if(direction == 1){
       if(round((this.x * 100)) % 100 == 0){
         this.y -= 0.1;
@@ -55,6 +56,7 @@ class Player  {
       }
     }
     
+    //edge limits 
     if(this.x > 13) {
       this.x = 13;
     } else if(this.x < 0) {
@@ -65,6 +67,9 @@ class Player  {
       this.y = 13;
     } 
     
+    //rock limits
+    
+    //romoving snow
     if(round((this.y * 100)) % 100 == 50){
       snowBlockArray[round(this.x)][floor(this.y)].fill = false;
       snowBlockArray[round(this.x)][floor(this.y)].down = false;
