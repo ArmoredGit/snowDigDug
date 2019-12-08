@@ -95,6 +95,9 @@ class Obstacle {
       }
       
       this.tic++;
+      if(this.tic > 130){
+        this.tic = 0;
+      }
     } else if (this.type == "rock") { // rocks, yeah that
       if (this.special == false) {
         if (this.y < 13) {
@@ -142,6 +145,18 @@ class Obstacle {
         fill("green");
         rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
       }
+      if(this.tic > 100){
+        fill("orange");
+        if(this.dir == 1){
+          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) - (6 * width / 144), (6 * width / 144), (6 * height / 144));
+        } else if(this.dir == 2){
+          rect((width / 18 * this.x) + (height / 144) + (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        } else if(this.dir == 3){
+          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) + (6 * width / 144), (6 * width / 144), (6 * height / 144));
+        } else if(this.dir == 4){
+          rect((width / 18 * this.x) + (height / 144) - (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        }
+      }
     } else if (this.type == "puf") {
       if (snowBlockArray[round(this.x)][round(this.y)].fill) {
         fill("red");
@@ -160,5 +175,37 @@ class Obstacle {
   }
 
   kill() {//kills the player if they should be dead
+    if (this.type == "drg") {
+      if(dist(player1.x,player1.y,this.x,this.y) < 0.9){
+        player1.reset();
+      }
+      if(this.tic > 100){
+        if(this.dir == 1){
+          if(dist(player1.x,player1.y,this.x,this.y - 1) < 0.9){
+            player1.reset();
+          }
+        } else if(this.dir == 2){
+          if(dist(player1.x,player1.y,this.x + 1,this.y) < 0.9){
+            player1.reset();
+          }
+        } else if(this.dir == 3){
+          if(dist(player1.x,player1.y,this.x,this.y + 1) < 0.9){
+            player1.reset();
+          }
+        } else if(this.dir == 4){
+          if(dist(player1.x,player1.y,this.x - 1,this.y) < 0.9){
+            player1.reset();
+          }
+        }
+      }
+    } else if (this.type == "puf") {
+      if(dist(player1.x,player1.y,this.x,this.y) < 0.9){
+        player1.reset();
+      }
+    } else if (this.type == "rock") {
+      if(dist(player1.x,player1.y,this.x,this.y) < 0.9 && this.special){
+        player1.reset();
+      }
+    }
   }
 }

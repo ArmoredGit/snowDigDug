@@ -82,4 +82,9 @@ class Player  {
       snowBlockArray[ceil(this.x)][round(this.y)].left = false;
     }
   }
+  
+  reset(){
+    this.x = 6;
+    this.y = 6;
+  }
 }
