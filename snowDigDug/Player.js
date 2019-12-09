@@ -13,6 +13,28 @@ class Player  {
   
   move(direction){
     //direction is 1 == up,2 == right,3 == down,4 == left
+    
+    //rock limits
+    for(let i = obs.length - 1; i >= 0; i--){
+      if(direction == 1){
+        if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 3;
+        }
+      } else if(direction == 2){
+        if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 4;
+        }
+      } else if(direction == 3){
+        if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 1;
+        }
+      } else if(direction == 4){
+        if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 2;
+        }
+      }
+    }
+    
     //actual movement
     if(direction == 1){
       if(round((this.x * 100)) % 100 == 0){
@@ -66,8 +88,6 @@ class Player  {
     } else if(this.y > 13) {
       this.y = 13;
     } 
-    
-    //rock limits
     
     //romoving snow
     if(round((this.y * 100)) % 100 == 50){

@@ -7,6 +7,7 @@ var obs;
 
 function setup() {
   createCanvas(900,900);
+  frameRate(10);
   snowflakeArray = [];
   snowBlockArray = [];
   obs = [];

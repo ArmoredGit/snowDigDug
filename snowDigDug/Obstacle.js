@@ -13,6 +13,7 @@ class Obstacle {
     this.special = false;
     this.tic = 0;
     this.dir = 2;
+    this.id = random();
   }
 
   move() {
@@ -98,7 +99,28 @@ class Obstacle {
         }
       }
       
-      this.tic++;
+      //rock limits
+      for(let i = obs.length - 1; i >= 0; i--){
+        if(this.dir == 1){
+          if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+            this.dir = 3;
+          }
+        } else if(this.dir == 2){
+          if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+            this.dir = 4;
+          }
+        } else if(this.dir == 3){
+          if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+            this.dir = 1;
+          }
+        } else if(this.dir == 4){
+          if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+            this.dir = 2;
+          }
+        }
+      }
+      
+      this.tic++; // tic increase 
       if(this.tic > 130){
         this.tic = 0;
       }
@@ -210,6 +232,17 @@ class Obstacle {
       if(dist(player1.x,player1.y,this.x,this.y) < 0.9 && this.special){
         player1.reset();
       }
+      for(let i = obs.length - 1; i >= 0; i--){
+        if(!obs[i].equals(this.id)){
+          if(dist(obs[i].x,obs[i].y,this.x,this.y) < 0.9 && this.special){
+            obs.splice(i,1);
+          }
+        }
+      }
     }
+  }
+  
+  equals(comp){
+    return (this.id == comp);
   }
 }
