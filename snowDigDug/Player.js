@@ -10,7 +10,7 @@ class Player  {
   show(){
     fill(0);
     stroke(255);
-    rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+    rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
     stroke(0);
   }
   
@@ -88,8 +88,8 @@ class Player  {
       this.x = 0;
     } else if(this.y < 0) {
       this.y = 0;
-    } else if(this.y > 13) {
-      this.y = 13;
+    } else if(this.y > 14) {
+      this.y = 14;
     } 
     
     //romoving snow
@@ -110,7 +110,7 @@ class Player  {
   
   reset(){ //for when player is killed
     this.x = 6;
-    this.y = 6;
+    this.y = 7;
     localScore=0;
   }
   

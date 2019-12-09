@@ -26,87 +26,93 @@ class LevelSelect{
     for(let i = 300; i<400; i++){
       snowflakeArray[i]= new GreenSnow();
     }
+    
     for(let i = 0; i < 14;i++){
       snowBlockArray[i] = [];
-      for(let j = 0; j < 14;j++){
+      for(let j = 0; j < 15;j++){
         snowBlockArray[i][j] = new SnowBlock(i,j);
       }
     }
-    for(let i = 0; i < 6;i++){
+    
+    for(let i = 0; i < 7;i++){
       snowBlockArray[6][i].fill = false;
       snowBlockArray[6][i].up = false;
       snowBlockArray[6][i].down = false;
     }
+    
+    for(let i = 0; i < 14;i++){
+      snowBlockArray[i][0].fill = false;
+      snowBlockArray[i][0].up = false;
+      snowBlockArray[i][0].left = false;
+      snowBlockArray[i][0].right = false;
+    }
   
-    snowBlockArray[6][6].fill = false;
-    snowBlockArray[6][6].up = false;
-    snowBlockArray[6][6].left = false;
-    snowBlockArray[6][6].right = false;
-    snowBlockArray[7][6].fill = false;
-    snowBlockArray[7][6].left = false;
-    snowBlockArray[5][6].fill = false;
-    snowBlockArray[5][6].right = false;
+    snowBlockArray[6][7].fill = false;
+    snowBlockArray[6][7].up = false;
+    snowBlockArray[6][7].left = false;
+    snowBlockArray[6][7].right = false;
+    snowBlockArray[7][7].fill = false;
+    snowBlockArray[7][7].left = false;
+    snowBlockArray[5][7].fill = false;
+    snowBlockArray[5][7].right = false;
   
-    player1 = new Player(6,6);
+    player1 = new Player(6,7);
     moving=false;
      
     switch(this.level){
       case 2:
-        snowBlockArray[6][8].fill = false;
-        snowBlockArray[6][8].right = false;
-        snowBlockArray[7][8].left = false;
-        snowBlockArray[7][8].fill = false;
-        snowBlockArray[7][8].right = false;
-        snowBlockArray[8][8].left = false;
-        snowBlockArray[8][8].fill = false;
+        snowBlockArray[6][7].fill = false;
+        snowBlockArray[6][7].right = false;
+        snowBlockArray[7][7].left = false;
+        snowBlockArray[7][7].fill = false;
+        snowBlockArray[7][7].right = false;
+        snowBlockArray[8][7].left = false;
+        snowBlockArray[8][7].fill = false;
         
-        snowBlockArray[1][5].fill = false;
-        snowBlockArray[1][5].right = false;
-        snowBlockArray[2][5].left = false;
-        snowBlockArray[2][5].fill = false;
-        snowBlockArray[2][5].right = false;
-        snowBlockArray[3][5].left = false;
-        snowBlockArray[3][5].fill = false;
+        snowBlockArray[1][6].fill = false;
+        snowBlockArray[1][6].right = false;
+        snowBlockArray[2][6].left = false;
+        snowBlockArray[2][6].fill = false;
+        snowBlockArray[2][6].right = false;
+        snowBlockArray[3][6].left = false;
+        snowBlockArray[3][6].fill = false;
         
-        snowBlockArray[10][10].fill = false;
-        snowBlockArray[10][10].right = false;
-        snowBlockArray[11][10].left = false;
-        snowBlockArray[11][10].fill = false;
-        snowBlockArray[11][10].right = false;
-        snowBlockArray[12][10].left = false;
-        snowBlockArray[12][10].fill = false;
+        snowBlockArray[10][11].fill = false;
+        snowBlockArray[10][11].right = false;
+        snowBlockArray[11][11].left = false;
+        snowBlockArray[11][11].fill = false;
+        snowBlockArray[11][11].right = false;
+        snowBlockArray[12][11].left = false;
+        snowBlockArray[12][11].fill = false;
         
-        snowBlockArray[10][2].fill = false;
-        snowBlockArray[10][2].right = false;
-        snowBlockArray[11][2].left = false;
-        snowBlockArray[11][2].fill = false;
-        snowBlockArray[11][2].right = false;
-        snowBlockArray[12][2].left = false;
-        snowBlockArray[12][2].fill = false;
+        snowBlockArray[10][3].fill = false;
+        snowBlockArray[10][3].right = false;
+        snowBlockArray[11][3].left = false;
+        snowBlockArray[11][3].fill = false;
+        snowBlockArray[11][3].right = false;
+        snowBlockArray[12][3].left = false;
+        snowBlockArray[12][3].fill = false;
         
-        snowBlockArray[1][8].fill = false;
-        snowBlockArray[1][8].down = false;
-        snowBlockArray[1][9].up = false;
         snowBlockArray[1][9].fill = false;
         snowBlockArray[1][9].down = false;
         snowBlockArray[1][10].up = false;
         snowBlockArray[1][10].fill = false;
+        snowBlockArray[1][10].down = false;
+        snowBlockArray[1][11].up = false;
+        snowBlockArray[1][11].fill = false;
         
-        obs.push(new Obstacle("rock",12,8));
-        obs.push(new Obstacle("rock",8,2));
-        obs.push(new Obstacle("rock",4,10));
-        obs.push(new Obstacle("rock",2,1));
-        obs.push(new Obstacle("puf",6,8));
-        obs.push(new Obstacle("puf",1,5));
-        obs.push(new Obstacle("puf",1,8));
-        obs.push(new Obstacle("drg",10,2));
-        obs.push(new Obstacle("drg",10,10));
+        obs.push(new Obstacle("rock",12,9));
+        obs.push(new Obstacle("rock",8,3));
+        obs.push(new Obstacle("rock",4,11));
+        obs.push(new Obstacle("rock",2,2));
+        obs.push(new Obstacle("puf",6,9));
+        obs.push(new Obstacle("puf",1,6));
+        obs.push(new Obstacle("puf",1,9));
+        obs.push(new Obstacle("drg",10,3));
+        obs.push(new Obstacle("drg",10,11));
         break;
       default:
         //level 1 code
-        snowBlockArray[1][1].fill = false;
-        snowBlockArray[1][1].down = false;
-        snowBlockArray[1][2].up = false;
         snowBlockArray[1][2].fill = false;
         snowBlockArray[1][2].down = false;
         snowBlockArray[1][3].up = false;
@@ -117,33 +123,33 @@ class LevelSelect{
         snowBlockArray[1][4].down = false;
         snowBlockArray[1][5].up = false;
         snowBlockArray[1][5].fill = false;
+        snowBlockArray[1][5].down = false;
+        snowBlockArray[1][6].up = false;
+        snowBlockArray[1][6].fill = false;
       
-        snowBlockArray[9][1].fill = false;
-        snowBlockArray[9][1].right = false;
-        snowBlockArray[10][1].left = false;
-        snowBlockArray[10][1].fill = false;
-        snowBlockArray[10][1].right = false;
-        snowBlockArray[11][1].left = false;
-        snowBlockArray[11][1].fill = false;
-        snowBlockArray[11][1].right = false;
-        snowBlockArray[12][1].left = false;
-        snowBlockArray[12][1].fill = false;
+        snowBlockArray[9][2].fill = false;
+        snowBlockArray[9][2].right = false;
+        snowBlockArray[10][2].left = false;
+        snowBlockArray[10][2].fill = false;
+        snowBlockArray[10][2].right = false;
+        snowBlockArray[11][2].left = false;
+        snowBlockArray[11][2].fill = false;
+        snowBlockArray[11][2].right = false;
+        snowBlockArray[12][2].left = false;
+        snowBlockArray[12][2].fill = false;
       
-        snowBlockArray[2][9].fill = false;
-        snowBlockArray[2][9].right = false;
-        snowBlockArray[3][9].left = false;
-        snowBlockArray[3][9].fill = false;
-        snowBlockArray[3][9].right = false;
-        snowBlockArray[4][9].left = false;
-        snowBlockArray[4][9].fill = false;
-        snowBlockArray[4][9].right = false;
-        snowBlockArray[5][9].left = false;
-        snowBlockArray[5][9].fill = false;
+        snowBlockArray[2][10].fill = false;
+        snowBlockArray[2][10].right = false;
+        snowBlockArray[3][10].left = false;
+        snowBlockArray[3][10].fill = false;
+        snowBlockArray[3][10].right = false;
+        snowBlockArray[4][10].left = false;
+        snowBlockArray[4][10].fill = false;
+        snowBlockArray[4][10].right = false;
+        snowBlockArray[5][10].left = false;
+        snowBlockArray[5][10].fill = false;
             
                
-        snowBlockArray[9][8].fill = false;
-        snowBlockArray[9][8].down = false;
-        snowBlockArray[9][9].up = false;
         snowBlockArray[9][9].fill = false;
         snowBlockArray[9][9].down = false;
         snowBlockArray[9][10].up = false;
@@ -154,14 +160,17 @@ class LevelSelect{
         snowBlockArray[9][11].down = false;
         snowBlockArray[9][12].up = false;
         snowBlockArray[9][12].fill = false;
+        snowBlockArray[9][12].down = false;
+        snowBlockArray[9][13].up = false;
+        snowBlockArray[9][13].fill = false;
         
-        obs.push(new Obstacle("rock",4,2));
-        obs.push(new Obstacle("rock",10,8));
-        obs.push(new Obstacle("rock",3,10));
-        obs.push(new Obstacle("puf",1,2));
-        obs.push(new Obstacle("puf",10,1));
-        obs.push(new Obstacle("puf",9,10));
-        obs.push(new Obstacle("drg",4,9));
+        obs.push(new Obstacle("rock",4,3));
+        obs.push(new Obstacle("rock",10,9));
+        obs.push(new Obstacle("rock",3,11));
+        obs.push(new Obstacle("puf",1,3));
+        obs.push(new Obstacle("puf",10,2));
+        obs.push(new Obstacle("puf",9,11));
+        obs.push(new Obstacle("drg",4,10));
         //end level 1 code
         break;
     }

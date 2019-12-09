@@ -14,7 +14,7 @@ var levels;
 function setup() {
   createCanvas(900,900);
   background(31, 17, 120);
-  levels = new LevelSelect(2);
+  levels = new LevelSelect(1);
   levels.resetLevel();
 }
 
@@ -43,6 +43,8 @@ function draw() {
     fill(255,0,0);
   }
   text(greeting, x1+4, y1+4);
+  
+  
   for(let i = 0; i < 400;i++){
     snowflakeArray[i].show();
     snowflakeArray[i].move();
@@ -51,7 +53,7 @@ function draw() {
   fill(0);
   rect(14 * width / 18, 0, 4 * width / 18, height);
   for(let i = 0; i < 14;i++){
-    for(let j = 0; j < 14;j++){
+    for(let j = 0; j < 15;j++){
       snowBlockArray[i][j].show();
     }
   }
@@ -69,6 +71,7 @@ function draw() {
     player1.move(2);
     started=true;
   }
+  
   scoreBoard.show();
   if(started){
     scoreBoard.countScore();

@@ -28,7 +28,7 @@ class Obstacle {
         this.dir = 2;
       } else if(this.y < -0.12) {
         this.dir = 3;
-      } else if(this.y > 13.12) {
+      } else if(this.y > 14.12) {
         this.dir = 1;
       } 
       
@@ -134,7 +134,7 @@ class Obstacle {
       } else if (this.special) {
         if (this.tic > 21) { //keep time odd or program breaks
           this.y+= 0.1;
-          if (this.y < 13) {
+          if (this.y < 14) {
             if (round(this.y * 100) % 100 == 50) {
               snowBlockArray[round(this.x)][floor(this.y)].down = false;
               snowBlockArray[round(this.x)][ceil(this.y)].up = false;
@@ -144,10 +144,10 @@ class Obstacle {
               this.special = false;
               this.dead = true;
             }
-          } else if (floor(this.y) == 13) {
+          } else if (floor(this.y) == 14) {
             this.special = false;
             this.dead = true;
-            this.y = 13;
+            this.y = 14;
           }
         } else {
           snowBlockArray[round(this.x)][round(this.y)].fill = false;
@@ -168,37 +168,37 @@ class Obstacle {
     if (this.type == "drg") {
       if (snowBlockArray[round(this.x)][round(this.y)].fill) {
         fill("green");
-        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+        circle((width / 18 * this.x) + (height / 36), (2 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
       } else {
         fill("green");
-        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
       }
       if(this.tic > 100){
         fill("orange");
         if(this.dir == 1){
-          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) - (6 * width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144) - (6 * width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 2){
-          rect((width / 18 * this.x) + (height / 144) + (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144) + (6 * width / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 3){
-          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) + (6 * width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144) + (6 * width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 4){
-          rect((width / 18 * this.x) + (height / 144) - (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144) - (6 * width / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
         }
       }
     } else if (this.type == "puf") {
       if (snowBlockArray[round(this.x)][round(this.y)].fill) {
         fill("red");
-        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+        circle((width / 18 * this.x) + (height / 36), (2 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
       } else {
         fill("red");
-        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
       }
     } else if (this.type == "rock") {
       fill("grey");
       if (this.special) {
         fill(255);
       }
-      rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+      rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
     }
   }
 
