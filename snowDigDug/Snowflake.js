@@ -15,7 +15,7 @@ class Snow{
   move(){
     this.y+=this.speed;
     if(this.y > (3 * height / 18)){
-      if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][(this.y - (3 * height / 18)) / (height / 18)].up){
+      if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (3 * height / 18)) / (height / 18))].up){
         this.y=-10;
         this.x=random(width / 9 * 7);
         this.size=random(10);
@@ -40,10 +40,12 @@ class RedSnow{
   
   move(){
     this.y+=this.speed;
-    if (this.y>(width / 18 *17-3)){ // snowBlockArray[round(this.x)][ceil(this.y)].up == false
-      this.y=-10;
-      this.x=random(width / 9 * 7);
-      this.size=random(10);
+    if(this.y > (3 * height / 18)){
+      if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (3 * height / 18)) / (height / 18))].up){
+        this.y=-10;
+        this.x=random(width / 9 * 7);
+        this.size=random(10);
+      }
     }
   }
 }
@@ -63,10 +65,12 @@ class GreenSnow{
   
   move(){
     this.y+=this.speed;
-    if (this.y>(width / 18 *17-3)){ // snowBlockArray[round(this.x)][ceil(this.y)].up == false
-      this.y=-10;
-      this.x=random(width / 9 * 7);
-      this.size=random(10);
+    if(this.y > (3 * height / 18)){
+      if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (3 * height / 18)) / (height / 18))].up){
+        this.y=-10;
+        this.x=random(width / 9 * 7);
+        this.size=random(10);
+      }
     }
   }
 }
