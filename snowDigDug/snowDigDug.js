@@ -44,7 +44,6 @@ function setup() {
   
   snowBlockArray[6][6].fill = false;
   snowBlockArray[6][6].up = false;
-  snowBlockArray[6][6].down = false;
   snowBlockArray[6][6].left = false;
   snowBlockArray[6][6].right = false;
   snowBlockArray[7][6].fill = false;
@@ -176,7 +175,11 @@ function draw() {
   obs.forEach(x => x.show());
   obs.forEach(x => x.move());
   obs.forEach(x => x.kill());
-    
+  for(let i = obs.length-1; i >= 0; i--){
+    if(obs[i].dead){
+      obs.splice(i,1);
+    }
+  }
 }
 
 function mouseDragged() {

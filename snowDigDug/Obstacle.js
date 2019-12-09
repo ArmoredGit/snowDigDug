@@ -15,6 +15,7 @@ class Obstacle {
     this.tic = 0;
     this.dir = 2;
     this.id = random();
+    this.dead = false;
   }
 
   move() {
@@ -144,12 +145,15 @@ class Obstacle {
             if (snowBlockArray[floor(this.x)][floor(this.y + 1)].fill) {
               this.y = floor(this.y);
               this.special = false;
+              this.dead = true;
             }
           } else if (floor(this.y) == 13) {
             this.special = false;
+            this.dead = true;
             this.y = 13;
           }
         } else {
+          snowBlockArray[round(this.x)][round(this.y)].fill = false;
           this.tic++;
           if (round(this.tic)%2 == 0) {
             this.x+=0.02;
