@@ -13,7 +13,8 @@ var levels;
 
 function setup() {
   createCanvas(900,900);
-  levels = new LevelSelect(1);
+  background(31, 17, 120);
+  levels = new LevelSelect(2);
   levels.resetLevel();
 }
 
