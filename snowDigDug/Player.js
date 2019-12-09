@@ -2,6 +2,7 @@ class Player  {
   constructor(x,y) {
     this.x = x;
     this.y = y;
+    this.dir = 1;
   }
   
   show(){
@@ -101,10 +102,29 @@ class Player  {
       snowBlockArray[ceil(this.x)][round(this.y)].fill = false;
       snowBlockArray[ceil(this.x)][round(this.y)].left = false;
     }
+    
+    this.dir = direction;
   }
   
-  reset(){
+  reset(){ //for when player is killed
     this.x = 6;
     this.y = 6;
+  }
+  
+  attack(){ // air pump weapon
+    //the temp pos of air pump weapon 
+    let tx = this.x;
+    let ty = this.y;
+    while(obs.forEach(n => ((n.type != "drg" && n.type != "pop") || n.x != round(tx) || n.y != round(ty)))){
+      if(this.dir == 1){
+        ty--;
+      } else if(this.dir == 2){
+        tx++;
+      } else if(this.dir == 3){
+        ty++;
+      } else if(this.dir == 4){
+        tx--;
+      }
+    }
   }
 }
