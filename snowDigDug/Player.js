@@ -2,6 +2,7 @@ class Player  {
   constructor(x,y) {
     this.x = x;
     this.y = y;
+    this.dir = 1;
   }
   
   show(){
@@ -13,6 +14,29 @@ class Player  {
   
   move(direction){
     //direction is 1 == up,2 == right,3 == down,4 == left
+    
+    //rock limits
+    for(let i = obs.length - 1; i >= 0; i--){
+      if(direction == 1){
+        if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 3;
+        }
+      } else if(direction == 2){
+        if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 4;
+        }
+      } else if(direction == 3){
+        if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 1;
+        }
+      } else if(direction == 4){
+        if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+          direction = 2;
+        }
+      }
+    }
+    
+    //actual movement
     if(direction == 1){
       if(round((this.x * 100)) % 100 == 0){
         this.y -= 0.1;
@@ -55,6 +79,7 @@ class Player  {
       }
     }
     
+    //edge limits 
     if(this.x > 13) {
       this.x = 13;
     } else if(this.x < 0) {
@@ -65,6 +90,7 @@ class Player  {
       this.y = 13;
     } 
     
+    //romoving snow
     if(round((this.y * 100)) % 100 == 50){
       snowBlockArray[round(this.x)][floor(this.y)].fill = false;
       snowBlockArray[round(this.x)][floor(this.y)].down = false;
@@ -75,6 +101,30 @@ class Player  {
       snowBlockArray[floor(this.x)][round(this.y)].right = false;
       snowBlockArray[ceil(this.x)][round(this.y)].fill = false;
       snowBlockArray[ceil(this.x)][round(this.y)].left = false;
+    }
+    
+    this.dir = direction;
+  }
+  
+  reset(){ //for when player is killed
+    this.x = 6;
+    this.y = 6;
+  }
+  
+  attack(){ // air pump weapon
+    //the temp pos of air pump weapon 
+    let tx = this.x;
+    let ty = this.y;
+    while(obs.forEach(n => ((n.type != "drg" && n.type != "pop") || n.x != round(tx) || n.y != round(ty)))){
+      if(this.dir == 1){
+        ty--;
+      } else if(this.dir == 2){
+        tx++;
+      } else if(this.dir == 3){
+        ty++;
+      } else if(this.dir == 4){
+        tx--;
+      }
     }
   }
 }
