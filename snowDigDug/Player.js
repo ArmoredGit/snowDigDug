@@ -94,11 +94,27 @@ class Player  {
     
     //romoving snow
     if(round((this.y * 100)) % 100 == 50){
+      if(snowBlockArray[round(this.x)][floor(this.y)].fill){
+        scoreBoard.score += 50;
+        exp.push({"x":round(this.x),"y":floor(this.y),});
+      }
+      if(snowBlockArray[round(this.x)][ceil(this.y)].fill){
+        scoreBoard.score += 50;
+        exp.push({"x":round(this.x),"y":ceil(this.y),});
+      }
       snowBlockArray[round(this.x)][floor(this.y)].fill = false;
       snowBlockArray[round(this.x)][floor(this.y)].down = false;
       snowBlockArray[round(this.x)][ceil(this.y)].fill = false;
       snowBlockArray[round(this.x)][ceil(this.y)].up = false;
     } else if(round((this.x * 100)) % 100 == 50){
+      if(snowBlockArray[floor(this.x)][round(this.y)].fill){
+        scoreBoard.score += 50;
+        exp.push({"x":floor(this.x),"y":round(this.y),});
+      }
+      if(snowBlockArray[ceil(this.x)][round(this.y)].fill){
+        scoreBoard.score += 50;
+        exp.push({"x":ceil(this.x),"y":round(this.y),});
+      }
       snowBlockArray[floor(this.x)][round(this.y)].fill = false;
       snowBlockArray[floor(this.x)][round(this.y)].right = false;
       snowBlockArray[ceil(this.x)][round(this.y)].fill = false;

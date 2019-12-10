@@ -64,6 +64,15 @@ class Obstacle {
       }
       
       //finding if in player network
+      let j = 0;
+      for(let i = 0; i < exp.length; i++){
+        if(exp[i].x == round(this.x) || exp[i].y == round(this.y)){
+          j++;
+        }
+      }
+      if(j != 0){
+        this.wander = false;
+      }
       
       //direction is 1 == up,2 == right,3 == down,4 == left
       if (this.dir == 1) {
