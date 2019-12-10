@@ -13,6 +13,7 @@ class LevelSelect{
     snowflakeArray = [];
     snowBlockArray = [];
     obs = [];
+    exp = [];
     localScore=0;
     pumpKills=0;
     rockKills=0;
@@ -38,6 +39,7 @@ class LevelSelect{
       snowBlockArray[6][i].fill = false;
       snowBlockArray[6][i].up = false;
       snowBlockArray[6][i].down = false;
+      exp.push({"x":6,"y":i,});
     }
     
     for(let i = 0; i < 14;i++){
@@ -45,6 +47,7 @@ class LevelSelect{
       snowBlockArray[i][0].up = false;
       snowBlockArray[i][0].left = false;
       snowBlockArray[i][0].right = false;
+      exp.push({"x":i,"y":0,});
     }
   
     snowBlockArray[6][7].fill = false;
@@ -55,6 +58,9 @@ class LevelSelect{
     snowBlockArray[7][7].left = false;
     snowBlockArray[5][7].fill = false;
     snowBlockArray[5][7].right = false;
+    exp.push({"x":5,"y":7,});
+    exp.push({"x":6,"y":7,});
+    exp.push({"x":7,"y":7,});
   
     player1 = new Player(6,7);
     moving=false;
