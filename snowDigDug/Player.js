@@ -10,7 +10,7 @@ class Player  {
   show(){
     fill(0);
     stroke(255);
-    rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+    rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
     stroke(0);
   }
   
@@ -88,17 +88,33 @@ class Player  {
       this.x = 0;
     } else if(this.y < 0) {
       this.y = 0;
-    } else if(this.y > 13) {
-      this.y = 13;
+    } else if(this.y > 14) {
+      this.y = 14;
     } 
     
     //romoving snow
     if(round((this.y * 100)) % 100 == 50){
+      if(snowBlockArray[round(this.x)][floor(this.y)].fill){
+        scoreBoard.add(50);
+        exp.push({"x":round(this.x),"y":floor(this.y),});
+      }
+      if(snowBlockArray[round(this.x)][ceil(this.y)].fill){
+        scoreBoard.add(50);
+        exp.push({"x":round(this.x),"y":ceil(this.y),});
+      }
       snowBlockArray[round(this.x)][floor(this.y)].fill = false;
       snowBlockArray[round(this.x)][floor(this.y)].down = false;
       snowBlockArray[round(this.x)][ceil(this.y)].fill = false;
       snowBlockArray[round(this.x)][ceil(this.y)].up = false;
     } else if(round((this.x * 100)) % 100 == 50){
+      if(snowBlockArray[floor(this.x)][round(this.y)].fill){
+        scoreBoard.add(50);
+        exp.push({"x":floor(this.x),"y":round(this.y),});
+      }
+      if(snowBlockArray[ceil(this.x)][round(this.y)].fill){
+        scoreBoard.add(50);
+        exp.push({"x":ceil(this.x),"y":round(this.y),});
+      }
       snowBlockArray[floor(this.x)][round(this.y)].fill = false;
       snowBlockArray[floor(this.x)][round(this.y)].right = false;
       snowBlockArray[ceil(this.x)][round(this.y)].fill = false;
@@ -110,7 +126,7 @@ class Player  {
   
   reset(){ //for when player is killed
     this.x = 6;
-    this.y = 6;
+    this.y = 7;
     localScore=0;
   }
   

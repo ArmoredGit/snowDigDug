@@ -15,46 +15,63 @@ class Obstacle {
     this.tic = 0;
     this.dir = 2;
     this.id = random();
+    this.dead = false;
+    this.wander = true;
   }
 
   move() {
     if (this.type == "drg" || this.type == "puf") {
       //edge limits 
-      if(this.x > 13) {
+      if(this.x > 13.12) {
         this.dir = 4;
-      } else if(this.x < 0) {
+      } else if(this.x < -0.12) {
         this.dir = 2;
-      } else if(this.y < 0) {
+      } else if(this.y < -0.12) {
         this.dir = 3;
-      } else if(this.y > 13) {
+      } else if(this.y > 14.12) {
         this.dir = 1;
-      } 
+      }
       
-      //changing direction
-      if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
-        this.dir--;
-        if(this.dir == 0){
-          this.dir = 4;
+      if(this.wander){
+        //changing direction
+        if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
+          this.dir--;
+          while(this.dir == 0){
+            this.dir = 4;
+          }
+          while(true){
+            if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
+              this.dir++;
+            } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
+              this.dir++;
+            } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
+              this.dir++;
+            } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
+              this.dir++;
+            } else {
+              break;
+            }
+            while(this.dir > 4){
+              this.dir -= 4;
+            }
+          }
         }
-        while(true){
-          if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
-            this.dir++;
-          } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
-            this.dir++;
-          } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
-            this.dir++;
-          } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
-            this.dir++;
-          } else {
-            break;
-          }
-          while(this.dir > 4){
-            this.dir -= 4;
-          }
+        while(this.dir > 4){
+          this.dir -= 4;
+        }
+      } else {
+        
+      }
+      
+      //finding if in player network
+      let j = 0;
+      for(let i = 0; i < exp.length; i++){
+        if(exp[i].x == round(this.x) && exp[i].y == round(this.y)){
+          j++;
         }
       }
-      while(this.dir > 4){
-        this.dir -= 4;
+      if(j != 0){
+        this.wander = false;
       }
       
       //direction is 1 == up,2 == right,3 == down,4 == left
@@ -136,7 +153,7 @@ class Obstacle {
       } else if (this.special) {
         if (this.tic > 21) { //keep time odd or program breaks
           this.y+= 0.1;
-          if (this.y < 13) {
+          if (this.y < 14) {
             if (round(this.y * 100) % 100 == 50) {
               snowBlockArray[round(this.x)][floor(this.y)].down = false;
               snowBlockArray[round(this.x)][ceil(this.y)].up = false;
@@ -144,12 +161,15 @@ class Obstacle {
             if (snowBlockArray[floor(this.x)][floor(this.y + 1)].fill) {
               this.y = floor(this.y);
               this.special = false;
+              this.dead = true;
             }
-          } else if (floor(this.y) == 13) {
+          } else if (floor(this.y) == 14) {
             this.special = false;
-            this.y = 13;
+            this.dead = true;
+            this.y = 14;
           }
         } else {
+          snowBlockArray[round(this.x)][round(this.y)].fill = false;
           this.tic++;
           if (round(this.tic)%2 == 0) {
             this.x+=0.02;
@@ -167,37 +187,37 @@ class Obstacle {
     if (this.type == "drg") {
       if (snowBlockArray[round(this.x)][round(this.y)].fill) {
         fill("green");
-        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+        circle((width / 18 * this.x) + (height / 36), (2 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
       } else {
         fill("green");
-        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
       }
       if(this.tic > 100){
         fill("orange");
         if(this.dir == 1){
-          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) - (6 * width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144) - (6 * width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 2){
-          rect((width / 18 * this.x) + (height / 144) + (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144) + (6 * width / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 3){
-          rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144) + (6 * width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144) + (6 * width / 144), (6 * width / 144), (6 * height / 144));
         } else if(this.dir == 4){
-          rect((width / 18 * this.x) + (height / 144) - (6 * width / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+          rect((width / 18 * this.x) + (height / 144) - (6 * width / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
         }
       }
     } else if (this.type == "puf") {
       if (snowBlockArray[round(this.x)][round(this.y)].fill) {
         fill("red");
-        circle((width / 18 * this.x) + (height / 36), (3 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
+        circle((width / 18 * this.x) + (height / 36), (2 * height / 18) + (height / 18 * this.y) + (width / 36), (3 * width / 144));
       } else {
         fill("red");
-        rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+        rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
       }
     } else if (this.type == "rock") {
       fill("grey");
       if (this.special) {
         fill(255);
       }
-      rect((width / 18 * this.x) + (height / 144), (3 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+      rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
     }
   }
 

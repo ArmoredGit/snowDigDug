@@ -12,6 +12,11 @@ class ScoreBoard  {
     localScore=(500*pumpKills)+(1000*rockKills)+round(this.score/5);
   }
   
+  add(amount){
+    this.score += amount;
+    localScore=(500*pumpKills)+(1000*rockKills)+round(this.score/5);
+  }
+  
   show(){
     fill(255,255,255);
     textAlign(CENTER);
