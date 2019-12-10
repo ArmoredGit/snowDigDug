@@ -132,7 +132,7 @@ function draw() {
       fill("white");
       text("BASED ON A NAMCO GAME\nREPRODUCED BY M.LESKA & N.RUDD",0,6*height/9,width,7*height/9);
       textSize(height / 36);
-      text("CREDIT  INF                                ROUND 1",0,17*height/18,width,8*height/9);
+      text("CREDIT  INF                                ROUND " + levels.level,0,17*height/18,width,8*height/9);
       text("\n[    press any key to begin    ]",0,2*height/9,width,height/3);
       text("\n00           000000             ",0,height/18,width,height/9);
     } else if(timer < 1500){
