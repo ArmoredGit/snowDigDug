@@ -109,7 +109,7 @@ function draw() {
       textSize(height / 36);
       text("CHARACTER",0,4*height/9 + (height) - (timer * height / 500),width,5*height/9 + (height) - (timer * height / 500));
       textSize(height / 36);
-      text("POOKA             FYGAR",0,5*height/9 + (height) - (timer * height / 500),width,6*height/9 + (height) - (timer * height / 500));
+      text("POOKA                   FYGAR",0,5*height/9 + (height) - (timer * height / 500),width,6*height/9 + (height) - (timer * height / 500));
       textSize(height / 36);
       fill("white");
       text("BASED ON A NAMCO GAME\nREPRODUCED BY M.LESKA & N.RUDD",0,6*height/9 + (height) - (timer * height / 500),width,7*height/9 + (height) - (timer * height / 500));
@@ -140,7 +140,7 @@ function draw() {
       textSize(height / 36);
       text("CHARACTER",0,4*height/9,width,5*height/9);
       textSize(height / 36);
-      text("POOKA             FYGAR",0,5*height/9,width,6*height/9);
+      text("POOKA                   FYGAR",0,5*height/9,width,6*height/9);
       textSize(height / 36);
       fill("white");
       text("BASED ON A NAMCO GAME\nREPRODUCED BY M.LESKA & N.RUDD",0,6*height/9,width,7*height/9);

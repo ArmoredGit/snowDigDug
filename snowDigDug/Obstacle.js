@@ -16,11 +16,11 @@ class Obstacle {
     this.dir = 2;
     this.id = random();
     this.dead = false;
+    this.wander = true;
   }
 
   move() {
     if (this.type == "drg" || this.type == "puf") {
-      
       //edge limits 
       if(this.x > 13.12) {
         this.dir = 4;
@@ -30,30 +30,40 @@ class Obstacle {
         this.dir = 3;
       } else if(this.y > 14.12) {
         this.dir = 1;
-      } 
+      }
       
-      //changing direction
-      if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
-        while(true){
-          if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
-            this.dir++;
-          } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
-            this.dir++;
-          } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
-            this.dir++;
-          } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
-            this.dir++;
-          } else {
-            break;
+      if(this.wander){
+        //changing direction
+        if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
+          this.dir--;
+          while(this.dir == 0){
+            this.dir = 4;
           }
-          while(this.dir > 4){
-            this.dir -= 4;
+          while(true){
+            if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
+              this.dir++;
+            } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
+              this.dir++;
+            } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
+              this.dir++;
+            } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
+              this.dir++;
+            } else {
+              break;
+            }
+            while(this.dir > 4){
+              this.dir -= 4;
+            }
           }
         }
+        while(this.dir > 4){
+          this.dir -= 4;
+        }
+      } else {
+        
       }
-      while(this.dir > 4){
-        this.dir -= 4;
-      }
+      
+      //finding if in player network
       
       //direction is 1 == up,2 == right,3 == down,4 == left
       if (this.dir == 1) {
