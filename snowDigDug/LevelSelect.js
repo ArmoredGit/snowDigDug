@@ -65,7 +65,7 @@ class LevelSelect{
     player1 = new Player(6,7);
     moving=false;
      
-    switch(this.level){
+    switch(round(this.level)){
       case 2:
         snowBlockArray[6][7].fill = false;
         snowBlockArray[6][7].right = false;

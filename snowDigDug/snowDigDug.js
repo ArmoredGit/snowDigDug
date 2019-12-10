@@ -88,7 +88,20 @@ function draw() {
         obs.splice(i,1);
       }
     }
+    
+    //ending the level
+    let j = 0;
+    for(let i = obs.length-1; i >= 0; i--){
+      if(obs[i].type != "rock"){
+        j++;
+      }
+    }
+    if(j == 0){
+      levels.setLevel(levels.level + 1);
+      levels.resetLevel();
+    }
   } else {
+    //animation / stall screen
     background(31, 17, 120);
     timer++;
     if((timer)%50<=25){
