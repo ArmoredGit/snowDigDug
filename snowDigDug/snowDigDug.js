@@ -1,7 +1,8 @@
 var snowflakeArray;
 var snowBlockArray;
 var player1;
-var moving, started;
+var moving;
+var started;
 var obs;
 var localScore;
 var pumpKills;
@@ -31,9 +32,9 @@ function draw() {
     rect(0, width / 18 *17, 800, 900-(width / 18 *17));
     timer++;
     textAlign(LEFT);
-    var greeting = "Happy Holidays!";
-    var x1 = 165;
-    var y1 = 85;
+    let greeting = "Happy Holidays!";
+    let x1 = 165;
+    let y1 = 85;
     noStroke();
     textSize(height / 18);
     if((timer)%50<=5){
@@ -137,7 +138,54 @@ function draw() {
       text("\n00           000000             ",0,height/18,width,height/9);
     } else if(timer < 1500){
       background(0);
-      text("animation goes here",0,height/2,width,height);
+      background(31, 17, 120);
+      noStroke();
+      fill(0, 121, 163);
+      rect(0, width / 18 *17, 800, 900-(width / 18 *17));
+      timer++;
+      textAlign(LEFT);
+      let greeting = "Happy Holidays!";
+      let x1 = 165;
+      let y1 = 85;
+      noStroke();
+      textSize(height / 18);
+      if((timer)%50<=5){
+        fill(255,0,0);
+      } else {
+        fill(0,255,0);
+      }
+      text(greeting, x1, y1);
+      if((timer)%50<=5){
+        fill(0,255,0);
+      } else {
+        fill(255,0,0);
+      }
+      text(greeting, x1+4, y1+4);
+      for(let i = 0; i < 400;i++){
+        snowflakeArray[i].show();
+        snowflakeArray[i].move();
+      }
+      noStroke();
+      fill(0);
+      rect(14 * width / 18, 0, 4 * width / 18, height);
+      for(let i = 0; i < 14;i++){
+        for(let j = 0; j < 15;j++){
+          snowBlockArray[i][j].show();
+        }
+      }
+      player1.show();
+      if(timer%2 == 0){
+        player1.move(2);
+      }
+      scoreBoard.show();
+      obs.forEach(x => x.show());
+      obs.forEach(x => x.move());
+      obs.forEach(x => x.kill());
+      for(let i = obs.length-1; i >= 0; i--){
+        if(obs[i].dead){
+          obs.splice(i,1);
+        }
+      }
     } else {
       timer = 0;
     }
@@ -147,6 +195,7 @@ function draw() {
 function mousePressed() {
   if(!playing){
     playing = true;
+    levels.resetLevel();
   }
 }
 
@@ -164,7 +213,12 @@ function mouseDragged() {
 }
 
 function keyPressed() {
-  moving=true;
+  if(!playing){
+    playing = true;
+    levels.resetLevel();
+  } else {
+    moving=true;
+  }
 }
 
 function keyReleased(){
