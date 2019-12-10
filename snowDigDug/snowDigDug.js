@@ -117,6 +117,18 @@ function draw() {
       text("CREDIT  INF                                ROUND 1",0,17*height/18 + (height) - (timer * height / 500),width,8*height/9 + (height) - (timer * height / 500));
       text("\n[    press any key to begin    ]",0,2*height/9 + (height) - (timer * height / 500),width,height/3 + (height) - (timer * height / 500));
       text("\n00           000000             ",0,height/18 + (height) - (timer * height / 500),width,height/9 + (height) - (timer * height / 500));
+      fill("red");
+      rect((width / 18 * 6) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      fill("green");
+      rect((width / 18 * 10) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      fill("orange");
+      if((timer)%50<=25){
+        rect((width / 18 * 11) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      }
+      fill("black");
+      stroke("white");
+      rect((width / 18 * 8) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      noStroke();
     } else if(timer < 800){
       textAlign(CENTER);
       textSize(height / 36);
@@ -136,6 +148,18 @@ function draw() {
       text("CREDIT  INF                                ROUND " + levels.level,0,17*height/18,width,8*height/9);
       text("\n[    press any key to begin    ]",0,2*height/9,width,height/3);
       text("\n00           000000             ",0,height/18,width,height/9);
+      fill("red");
+      rect((width / 18 * 6) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      fill("green");
+      rect((width / 18 * 10) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      fill("orange");
+      if((timer)%50<=25){
+        rect((width / 18 * 11) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      }
+      fill("black");
+      stroke("white");
+      rect((width / 18 * 8) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      noStroke();
     } else if(timer < 1500){
       background(0);
       background(31, 17, 120);
@@ -174,7 +198,15 @@ function draw() {
         }
       }
       player1.show();
-      if(timer%2 == 0){
+      if(round(timer)%2 == 1 && timer < 950){
+        player1.move(2);
+      } else if(round(timer)%2 == 1 && timer < 1100){
+        player1.move(3);
+      } else if(round(timer)%2 == 1 && timer < 1250){
+        player1.move(4);
+      } else if(round(timer)%2 == 1 && timer < 1450){
+        player1.move(1);
+      } else if(round(timer)%2 == 1){
         player1.move(2);
       }
       scoreBoard.show();
@@ -188,6 +220,7 @@ function draw() {
       }
     } else {
       timer = 0;
+      levels.resetLevel();
     }
   }
 }
