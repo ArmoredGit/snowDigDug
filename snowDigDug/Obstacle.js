@@ -66,7 +66,7 @@ class Obstacle {
       //finding if in player network
       let j = 0;
       for(let i = 0; i < exp.length; i++){
-        if(exp[i].x == round(this.x) || exp[i].y == round(this.y)){
+        if(exp[i].x == round(this.x) && exp[i].y == round(this.y)){
           j++;
         }
       }
