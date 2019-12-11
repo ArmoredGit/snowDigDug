@@ -64,6 +64,7 @@ class LevelSelect{
   
     player1 = new Player(6,7);
     moving=false;
+    rocksDropped = 0;
      
     switch(round(this.level)){
       case 2:

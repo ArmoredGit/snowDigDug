@@ -2,6 +2,7 @@ var snowflakeArray;
 var snowBlockArray;
 var player1;
 var moving;
+var attacking;
 var started;
 var obs;
 var localScore;
@@ -12,6 +13,7 @@ var timer;
 var levels;
 var playing;
 var exp;
+var rocksDropped;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
@@ -65,18 +67,26 @@ function draw() {
       }
     }
     player1.show();
+    if(attacking){
+      player1.attack();
+      moving = false;
+    }
     if(keyCode==UP_ARROW && moving){
       player1.move(1);
       started=true;
+      attacking = false;
     } else if (keyCode==DOWN_ARROW && moving){
       player1.move(3);
       started=true;
+      attacking = false;
     } else if (keyCode==LEFT_ARROW && moving){
       player1.move(4);
       started=true;
+      attacking = false;
     } else if (keyCode==RIGHT_ARROW && moving){
       player1.move(2);
       started=true;
+      attacking = false;
     }
     
     scoreBoard.show();
@@ -86,6 +96,18 @@ function draw() {
     for(let i = obs.length-1; i >= 0; i--){
       if(obs[i].dead){
         obs.splice(i,1);
+      }
+    }
+    
+    //fruit -- this sort of works
+    if(rocksDropped >= 2){
+      fill("pink");
+      stroke(255);
+      rect((width / 18 * 6) + (height / 72), (2 * height / 18) + (height / 18 * 7) + (width / 72), (2 * width / 72), (2 * height / 72));
+      noStroke();
+      if(player1.x == 6 && player1.y == 7){
+        rocksDropped = -10;
+        scoreBoard.add(500);
       }
     }
     
@@ -247,13 +269,30 @@ function mouseDragged() {
   started=true;
   if((mouseY - pmouseY) > height / 40 ){
     player1.move(3);
+    attacking = false;
   } else if((pmouseY - mouseY) > height / 40 ){
     player1.move(1);
+    attacking = false;
   } else if((mouseX - pmouseX) > width / 40 ){
     player1.move(2);
+    attacking = false;
   } else if((pmouseX - mouseX) > width / 40 ){
     player1.move(4);
+    attacking = false;
   }
+}
+
+function mousePressed() {
+  if(!playing){
+    playing = true;
+    levels.resetLevel();
+  } else {
+    attacking = true;
+  }
+}
+
+function mouseReleased() {
+  attacking = false;
 }
 
 function keyPressed() {
@@ -262,6 +301,7 @@ function keyPressed() {
     levels.resetLevel();
   } else {
     moving=true;
+    attacking = false;
   }
 }
 

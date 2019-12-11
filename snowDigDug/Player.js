@@ -121,29 +121,75 @@ class Player  {
       snowBlockArray[ceil(this.x)][round(this.y)].left = false;
     }
     
+    //non explored, but visited
+    let check = -1;
+    for(let i = 0; i < exp.length; i++){
+      if(round(this.x) == exp[i].x && round(this.x) == exp[i].x){
+        check = 1;
+      }
+    }
+    if(check == 1){
+      exp.push({"x":round(this.x),"y":round(this.y),});
+    }
     this.dir = direction;
   }
   
   reset(){ //for when player is killed
     this.x = 6;
     this.y = 7;
-    localScore=0;
   }
   
   attack(){ // air pump weapon
-    //the temp pos of air pump weapon 
-    let tx = this.x;
-    let ty = this.y;
-    while(obs.forEach(n => ((n.type != "drg" && n.type != "pop") || n.x != round(tx) || n.y != round(ty)))){
+    let tx = round(this.x);//the temp pos of air pump weapon 
+    let ty = round(this.y);//the temp pos of air pump weapon 
+    let fo = -1;
+    
+    for(let i = 0; i < 4; i++){
       if(this.dir == 1){
+        if(snowBlockArray[round(tx)][round(ty)].up){
+          break;
+        }
         ty--;
       } else if(this.dir == 2){
+        if(snowBlockArray[round(tx)][round(ty)].right){
+          break;
+        }
         tx++;
       } else if(this.dir == 3){
+        if(snowBlockArray[round(tx)][round(ty)].down){
+          break;
+        }
         ty++;
       } else if(this.dir == 4){
+        if(snowBlockArray[round(tx)][round(ty)].left){
+          break;
+        }
         tx--;
       }
+      if(tx > 13 || ty > 14 || ty < 0 || tx < 0){
+        break;
+      }
+      if(snowBlockArray[round(tx)][round(ty)].fill){
+        break;
+      }
+      for(let j = 0; j < obs.length; j++){
+        if(round(tx) == round(obs[j].x) && round(ty) == round(obs[j].y) && obs[j].type != "rock" && !snowBlockArray[round(tx)][round(ty)].fill){
+          fo = j;
+          break;
+        }
+      }
+      if(fo != -1){
+        break;
+      }
     }
+    
+    if(fo != -1){
+      obs[fo].inflate += 3;
+    }
+    stroke(255);
+    strokeWeight(width / 288);
+    line((width / 18 * this.x) + (width / 36),(height / 18 * this.y) + (2 * height / 18) + (width / 36),(width / 18 * tx) + (width / 36),(height / 18 * ty) + (2 * height / 18) + (width / 36));
+    strokeWeight(1);
+    stroke(0);
   }
 }
