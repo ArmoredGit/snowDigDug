@@ -17,130 +17,138 @@ class Obstacle {
     this.id = random();
     this.dead = false;
     this.wander = true;
+    this.inflate = 0;
   }
 
   move() {
     if (this.type == "drg" || this.type == "puf") {
-      //edge limits 
-      if(this.x > 13.12) {
-        this.dir = 4;
-      } else if(this.x < -0.12) {
-        this.dir = 2;
-      } else if(this.y < -0.12) {
-        this.dir = 3;
-      } else if(this.y > 14.12) {
-        this.dir = 1;
-      }
-      
-      if(this.wander){
-        //changing direction
-        if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
-          this.dir--;
-          while(this.dir == 0){
-            this.dir = 4;
-          }
-          while(true){
-            if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
-              this.dir++;
-            } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
-              this.dir++;
-            } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
-              this.dir++;
-            } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
-              this.dir++;
-            } else {
-              break;
-            }
-            while(this.dir > 4){
-              this.dir -= 4;
-            }
-          }
-        }
-        while(this.dir > 4){
-          this.dir -= 4;
+      if(this.inflate > 0){
+        this.inflate--;
+        if(this.inflate > 100){
+          this.dead = true;
         }
       } else {
+        //edge limits 
+        if(this.x > 13.12) {
+          this.dir = 4;
+        } else if(this.x < -0.12) {
+          this.dir = 2;
+        } else if(this.y < -0.12) {
+          this.dir = 3;
+        } else if(this.y > 14.12) {
+          this.dir = 1;
+        }
         
-      }
-      
-      //finding if in player network
-      let j = 0;
-      for(let i = 0; i < exp.length; i++){
-        if(exp[i].x == round(this.x) && exp[i].y == round(this.y)){
-          j++;
-        }
-      }
-      if(j != 0){
-        this.wander = false;
-      }
-      
-      //direction is 1 == up,2 == right,3 == down,4 == left
-      if (this.dir == 1) {
-        if (round((this.x * 100)) % 100 == 0) {
-          this.y -= 0.05;
+        if(this.wander){
+          //changing direction
+          if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
+            this.dir--;
+            while(this.dir == 0){
+              this.dir = 4;
+            }
+            while(true){
+              if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
+                this.dir++;
+              } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
+                this.dir++;
+              } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
+                this.dir++;
+              } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
+                this.dir++;
+              } else {
+                break;
+              }
+              while(this.dir > 4){
+                this.dir -= 4;
+              }
+            }
+          }
+          while(this.dir > 4){
+            this.dir -= 4;
+          }
         } else {
-          if ((this.x * 100) % 100 > 50) {
-            this.x += 0.1;
+          
+        }
+        
+        //finding if in player network
+        let j = 0;
+        for(let i = 0; i < exp.length; i++){
+          if(exp[i].x == round(this.x) && exp[i].y == round(this.y)){
+            j++;
+          }
+        }
+        if(j != 0){
+          this.wander = false;
+        }
+        
+        //direction is 1 == up,2 == right,3 == down,4 == left
+        if (this.dir == 1) {
+          if (round((this.x * 100)) % 100 == 0) {
+            this.y -= 0.05;
           } else {
-            this.x -= 0.1;
+            if ((this.x * 100) % 100 > 50) {
+              this.x += 0.1;
+            } else {
+              this.x -= 0.1;
+            }
           }
-        }
-      } else if (this.dir == 2) {
-        if (round((this.y * 100)) % 100 == 0) {
-          this.x += 0.05;
-        } else {
-          if ((this.y * 100) % 100 > 50) {
-            this.y += 0.1;
+        } else if (this.dir == 2) {
+          if (round((this.y * 100)) % 100 == 0) {
+            this.x += 0.05;
           } else {
-            this.y -= 0.1;
+            if ((this.y * 100) % 100 > 50) {
+              this.y += 0.1;
+            } else {
+              this.y -= 0.1;
+            }
           }
-        }
-      } else if (this.dir == 3) {
-        if (round((this.x * 100)) % 100 == 0) {
-          this.y += 0.05;
-        } else {
-          if ((this.x * 100) % 100 > 50) {
-            this.x += 0.1;
+        } else if (this.dir == 3) {
+          if (round((this.x * 100)) % 100 == 0) {
+            this.y += 0.05;
           } else {
-            this.x -= 0.1;
+            if ((this.x * 100) % 100 > 50) {
+              this.x += 0.1;
+            } else {
+              this.x -= 0.1;
+            }
           }
-        }
-      } else if (this.dir == 4) {
-        if (round((this.y * 100)) % 100 == 0) {
-          this.x -= 0.05;
-        } else {
-          if ((this.y * 100) % 100 > 50) {
-            this.y += 0.1;
+        } else if (this.dir == 4) {
+          if (round((this.y * 100)) % 100 == 0) {
+            this.x -= 0.05;
           } else {
-            this.y -= 0.1;
+            if ((this.y * 100) % 100 > 50) {
+              this.y += 0.1;
+            } else {
+              this.y -= 0.1;
+            }
           }
         }
-      }
-      
-      //rock limits
-      for(let i = obs.length - 1; i >= 0; i--){
-        if(this.dir == 1){
-          if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
-            this.dir = 3;
-          }
-        } else if(this.dir == 2){
-          if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
-            this.dir = 4;
-          }
-        } else if(this.dir == 3){
-          if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
-            this.dir = 1;
-          }
-        } else if(this.dir == 4){
-          if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
-            this.dir = 2;
+        
+        //rock limits
+        for(let i = obs.length - 1; i >= 0; i--){
+          if(this.dir == 1){
+            if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+              this.dir = 3;
+            }
+          } else if(this.dir == 2){
+            if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+              this.dir = 4;
+            }
+          } else if(this.dir == 3){
+            if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+              this.dir = 1;
+            }
+          } else if(this.dir == 4){
+            if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+              this.dir = 2;
+            }
           }
         }
-      }
-      
-      this.tic++; // tic increase 
-      if(this.tic > 130){
-        this.tic = 0;
+        
+        this.tic++; // tic increase 
+        if(this.tic > 130){
+          this.tic = 0;
+        }
       }
     } else if (this.type == "rock") { // rocks, yeah that
       if (this.special == false) {

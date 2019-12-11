@@ -66,6 +66,7 @@ function draw() {
       }
     }
     player1.show();
+    player1.attack();
     if(keyCode==UP_ARROW && moving){
       player1.move(1);
       started=true;
