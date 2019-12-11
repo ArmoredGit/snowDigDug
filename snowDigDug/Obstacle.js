@@ -162,6 +162,7 @@ class Obstacle {
               this.y = floor(this.y);
               this.special = false;
               this.dead = true;
+              rocksDropped++;
             }
           } else if (floor(this.y) == 14) {
             this.special = false;

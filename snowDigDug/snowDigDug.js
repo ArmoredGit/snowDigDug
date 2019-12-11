@@ -12,6 +12,7 @@ var timer;
 var levels;
 var playing;
 var exp;
+var rocksDropped;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
@@ -86,6 +87,18 @@ function draw() {
     for(let i = obs.length-1; i >= 0; i--){
       if(obs[i].dead){
         obs.splice(i,1);
+      }
+    }
+    
+    //fruit -- this sort of works
+    if(rocksDropped >= 2){
+      fill("pink");
+      stroke(255);
+      rect((width / 18 * 6) + (height / 72), (2 * height / 18) + (height / 18 * 7) + (width / 72), (2 * width / 72), (2 * height / 72));
+      noStroke();
+      if(player1.x == 6 && player1.y == 7){
+        rocksDropped = -10;
+        scoreBoard.add(500);
       }
     }
     
