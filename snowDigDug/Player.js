@@ -121,13 +121,22 @@ class Player  {
       snowBlockArray[ceil(this.x)][round(this.y)].left = false;
     }
     
+    //non explored, but visited
+    let check = -1;
+    for(let i = 0; i < exp.length; i++){
+      if(round(this.x) == exp[i].x && round(this.x) == exp[i].x){
+        check = 1;
+      }
+    }
+    if(check == 1){
+      exp.push({"x":round(this.x),"y":round(this.y),});
+    }
     this.dir = direction;
   }
   
   reset(){ //for when player is killed
     this.x = 6;
     this.y = 7;
-    localScore=0;
   }
   
   attack(){ // air pump weapon
@@ -175,12 +184,12 @@ class Player  {
     }
     
     if(fo != -1){
-      obs[fo].inflate += 5;
-      stroke(255);
-      strokeWeight(width / 288);
-      line((width / 18 * this.x) + (width / 36),(height / 18 * this.y) + (2 * height / 18) + (width / 36),(width / 18 * tx) + (width / 36),(height / 18 * ty) + (2 * height / 18) + (width / 36));
+      obs[fo].inflate += 3;
     }
+    stroke(255);
+    strokeWeight(width / 288);
+    line((width / 18 * this.x) + (width / 36),(height / 18 * this.y) + (2 * height / 18) + (width / 36),(width / 18 * tx) + (width / 36),(height / 18 * ty) + (2 * height / 18) + (width / 36));
     strokeWeight(1);
-    noStroke();
+    stroke(0);
   }
 }

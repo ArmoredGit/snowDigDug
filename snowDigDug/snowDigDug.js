@@ -2,6 +2,7 @@ var snowflakeArray;
 var snowBlockArray;
 var player1;
 var moving;
+var attacking;
 var started;
 var obs;
 var localScore;
@@ -66,19 +67,26 @@ function draw() {
       }
     }
     player1.show();
-    player1.attack();
+    if(attacking){
+      player1.attack();
+      moving = false;
+    }
     if(keyCode==UP_ARROW && moving){
       player1.move(1);
       started=true;
+      attacking = false;
     } else if (keyCode==DOWN_ARROW && moving){
       player1.move(3);
       started=true;
+      attacking = false;
     } else if (keyCode==LEFT_ARROW && moving){
       player1.move(4);
       started=true;
+      attacking = false;
     } else if (keyCode==RIGHT_ARROW && moving){
       player1.move(2);
       started=true;
+      attacking = false;
     }
     
     scoreBoard.show();
@@ -261,13 +269,30 @@ function mouseDragged() {
   started=true;
   if((mouseY - pmouseY) > height / 40 ){
     player1.move(3);
+    attacking = false;
   } else if((pmouseY - mouseY) > height / 40 ){
     player1.move(1);
+    attacking = false;
   } else if((mouseX - pmouseX) > width / 40 ){
     player1.move(2);
+    attacking = false;
   } else if((pmouseX - mouseX) > width / 40 ){
     player1.move(4);
+    attacking = false;
   }
+}
+
+function mousePressed() {
+  if(!playing){
+    playing = true;
+    levels.resetLevel();
+  } else {
+    attacking = true;
+  }
+}
+
+function mouseReleased() {
+  attacking = false;
 }
 
 function keyPressed() {
@@ -276,6 +301,7 @@ function keyPressed() {
     levels.resetLevel();
   } else {
     moving=true;
+    attacking = false;
   }
 }
 
