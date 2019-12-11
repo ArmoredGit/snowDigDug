@@ -185,11 +185,11 @@ class Player  {
     
     if(fo != -1){
       obs[fo].inflate += 3;
+      stroke(255);
+      strokeWeight(width / 288);
+      line((width / 18 * this.x) + (width / 36),(height / 18 * this.y) + (2 * height / 18) + (width / 36),(width / 18 * obs[fo].x) + (width / 36),(height / 18 * obs[fo].y) + (2 * height / 18) + (width / 36));
+      strokeWeight(1);
+      stroke(0);
     }
-    stroke(255);
-    strokeWeight(width / 288);
-    line((width / 18 * this.x) + (width / 36),(height / 18 * this.y) + (2 * height / 18) + (width / 36),(width / 18 * tx) + (width / 36),(height / 18 * ty) + (2 * height / 18) + (width / 36));
-    strokeWeight(1);
-    stroke(0);
   }
 }
