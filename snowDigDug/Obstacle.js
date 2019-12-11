@@ -17,6 +17,7 @@ class Obstacle {
     this.id = random();
     this.dead = false;
     this.wander = true;
+    this.burrough = false;
     this.inflate = 0;
   }
 
@@ -67,7 +68,38 @@ class Obstacle {
             this.dir -= 4;
           }
         } else {
-          
+          if(this.burrough){
+            
+          } else {
+            if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
+              let thet = atan((player1.y-this.y)/(player1.x-this.x));
+              if(thet < PI / 4 || thet > 7 * PI / 4 ){
+                this.dir = 4;
+              } else if(thet < 3 * PI / 4) {
+                this.dir = 3;
+              } else if(thet < 5 * PI / 4) {
+                this.dir = 2;
+              } else if(thet < 7 * PI / 4) {
+                this.dir = 1;
+              }
+              while(true){
+                if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
+                  this.dir++;
+                } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
+                  this.dir++;
+                } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
+                  this.dir++;
+                } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
+                  this.dir++;
+                } else {
+                  break;
+                }
+                while(this.dir > 4){
+                  this.dir -= 4;
+                }
+              }
+            }
+          }
         }
         
         //finding if in player network
@@ -79,6 +111,7 @@ class Obstacle {
         }
         if(j != 0){
           this.wander = false;
+          this.burrough = false;
         }
         
         //direction is 1 == up,2 == right,3 == down,4 == left
