@@ -73,13 +73,13 @@ class Obstacle {
           } else {
             if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
               let difq = abs((player1.y-this.y)/(player1.x-this.x));
-              if(player1.y > this.y){
+              if(player1.y > this.y && difq > 1){
                 this.dir = 1;
-              } else if(player1.x > this.x) {
+              } else if(player1.x > this.x && difq < 1) {
                 this.dir = 2;
-              } else if(player1.y < this.y) {
+              } else if(player1.y < this.y && difq > 1) {
                 this.dir = 3;
-              } else if(player1.x < this.x) {
+              } else if(player1.x < this.x && difq < 1) {
                 this.dir = 4;
               }
               print(thet);
