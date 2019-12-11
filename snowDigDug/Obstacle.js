@@ -72,16 +72,17 @@ class Obstacle {
             
           } else {
             if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
-              let thet = atan((player1.y-this.y)/(player1.x-this.x));
-              if(thet < PI / 4 || thet > 7 * PI / 4 ){
-                this.dir = 4;
-              } else if(thet < 3 * PI / 4) {
-                this.dir = 3;
-              } else if(thet < 5 * PI / 4) {
-                this.dir = 2;
-              } else if(thet < 7 * PI / 4) {
+              let difq = abs((player1.y-this.y)/(player1.x-this.x));
+              if(player1.y > this.y){
                 this.dir = 1;
+              } else if(player1.x > this.x) {
+                this.dir = 2;
+              } else if(player1.y < this.y) {
+                this.dir = 3;
+              } else if(player1.x < this.x) {
+                this.dir = 4;
               }
+              print(thet);
               while(true){
                 if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
                   this.dir++;
