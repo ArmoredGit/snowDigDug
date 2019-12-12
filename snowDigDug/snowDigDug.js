@@ -113,13 +113,13 @@ function draw() {
     }
     
     //ending the level
-    let j = 0;
+    let j = true;
     for(let i = obs.length-1; i >= 0; i--){
       if(obs[i].type != "rock"){
-        j++;
+        j = false;
       }
     }
-    if(j == 0){
+    if(j){
       levels.setLevel(levels.level + 1);
       levels.resetLevel();
     }

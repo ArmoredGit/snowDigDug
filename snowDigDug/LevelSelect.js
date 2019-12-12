@@ -75,13 +75,13 @@ class LevelSelect{
      
     switch(round(this.level)){
       case 2:
-        snowBlockArray[6][7].fill = false;
-        snowBlockArray[6][7].right = false;
-        snowBlockArray[7][7].left = false;
-        snowBlockArray[7][7].fill = false;
-        snowBlockArray[7][7].right = false;
-        snowBlockArray[8][7].left = false;
-        snowBlockArray[8][7].fill = false;
+        snowBlockArray[6][9].fill = false;
+        snowBlockArray[6][9].right = false;
+        snowBlockArray[7][9].left = false;
+        snowBlockArray[7][9].fill = false;
+        snowBlockArray[7][9].right = false;
+        snowBlockArray[8][9].left = false;
+        snowBlockArray[8][9].fill = false;
         
         snowBlockArray[1][6].fill = false;
         snowBlockArray[1][6].right = false;
