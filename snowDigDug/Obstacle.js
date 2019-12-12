@@ -72,18 +72,21 @@ class Obstacle {
             
           } else {
             if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
-              //let difq = abs((player1.y-this.y*1.0)/(player1.x-this.x));
-              //if(player1.y < this.y && difq > 1){
-              //  this.dir = 1;
-              //} else if(player1.x > this.x && difq < 1) {
-              //  this.dir = 2;
-              //} else if(player1.y > this.y && difq > 1) {
-              //  this.dir = 3;
-              //} else if(player1.x < this.x && difq < 1) {
-              //  this.dir = 4;
-              //}
-              //print(difq);
-              this.dir = this.mazeDir(round(this.x),round(this.y),0);
+              maze = [];
+              for(let i = 0; i < 14;i++){
+                maze[i] = [];
+                for(let j = 0; j < 15;j++){
+                  maze[i][j] = false;
+                }
+              }
+              for(let i = 0; i < exp.length; i++){
+                maze[round(exp[i].x)][round(exp[i].y)] = true;
+              }
+              maze[round(this.x)][round(this.y)] = false;
+              
+              if(round(this.x) != round(player1.x) || round(this.y) != round(player1.y)){
+                this.spin();
+              }
             }
           }
         }
@@ -295,57 +298,94 @@ class Obstacle {
     return (this.id == comp);
   }
   
-  mazeDir(x,y,run){
-    if(x == round(player1.x) && y == round(player1.y)){
-      return 1;
-    } else if(run > 10){
-      return 100;
-    } else {
-      let up = 0;
-      let right = 0;
-      let left = 0;
-      let down = 0;
-      if(this.dir == 1 && snowBlockArray[round(x)][round(y)].up == false && y != 0){
-        up = this.mazeDir(x,y - 1,run + 1) + 1;
-      } else {
-        up = 100;
-      }
-      if(this.dir == 3 && snowBlockArray[round(x)][round(y)].down == false && y != 14){
-        down = this.mazeDir(x,y + 1,run + 1) + 1;
-      }  else {
-        down = 100;
-      } 
-      if(this.dir == 2 && snowBlockArray[round(x)][round(y)].right == false  && x != 13){
-        right = this.mazeDir(x + 1,y,run + 1) + 1;
-      }  else {
-        right = 100;
-      }
-      if(this.dir == 4 && snowBlockArray[round(x)][round(y)].left == false  && x != 0){
-        left = this.mazeDir(x - 1,y - 1,run + 1) + 1;
-      } else {
-        left = 100;
-      }
-      if(run == 0){
-        if(up < down && up < left && up < right){
-          return 1;
-        } else if(down < up && down < left && down < right){
-          return 3;
-        } else if(left < down && up > left && left < right){
-          return 4;
-        } else if(right <= down && right <= left && right <= right){
-          return 2;
-        }
-      } else {
-        if(up < down && up < left && up < right){
-          return up;
-        } else if(down < up && down < left && down < right){
-          return down;
-        } else if(left < down && up > left && left < right){
-          return left;
-        } else if(right <= down && right <= left && right <= right){
-          return right;
+  mazeDir(x,y){
+    if(round(x) > 13 || round(x) < 0 || round(y) < 0 || round(y) > 14){
+      return false;
+    }
+    if(!maze[round(x)][round(y)]){
+      return false;
+    }
+    if(round(x) == round(player1.x) && round(y) == round(player1.y)){
+      return true;
+    }
+    maze[round(x)][round(y)] = false;
+    if(!snowBlockArray[round(x)][round(y)].up && round(y) != 0){
+      if(maze[round(x)][round(y - 1)]){
+        if(this.mazeDir(round(x),round(y - 1))){
+          return true;
         }
       }
+    }
+    
+    if(!snowBlockArray[round(x)][round(y)].right && round(x) != 13){
+      if(maze[round(x + 1)][round(y)]){
+        if(this.mazeDir(round(x + 1),round(y))){
+          return true;
+        }
+      }
+    }
+    
+    if(!snowBlockArray[round(x)][round(y)].down && round(y) != 14){
+      if(maze[round(x)][round(y + 1)]){
+        if(this.mazeDir(round(x),round(y + 1))){
+          return true;
+        }
+      }
+    }
+    
+    if(!snowBlockArray[round(x)][round(y)].left && round(x) != 0){
+      if(maze[round(x - 1)][round(y)]){
+        if(this.mazeDir(round(x - 1),round(y))){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  
+  spin() {
+    switch(round(this.dir)){
+      case 1:
+        if(snowBlockArray[round(this.x)][round(this.y)].up == false && this.y > 0 && this.dir != 3){
+          if(this.mazeDir(round(this.x),round(this.y - 1))){
+            this.dir = 1;
+            break;
+          }
+        }
+        this.dir = 2;
+        this.spin();
+        break;
+      case 2:
+        if(snowBlockArray[round(this.x)][round(this.y)].right == false && this.x < 13 && this.dir != 4) {
+          if(this.mazeDir(round(this.x + 1),round(this.y))){
+            this.dir = 2;
+            break;
+          }
+        }
+        this.dir = 3;
+        this.spin();
+        break;
+      case 3:
+        if(snowBlockArray[round(this.x)][round(this.y)].down == false && this.y < 14 && this.dir != 1) {
+          if(this.mazeDir(round(this.x),round(this.y + 1))){
+            this.dir = 3;
+            break;
+          }
+        }
+        this.dir = 4;
+        this.spin();
+        break;
+      case 4:
+        if(snowBlockArray[round(this.x)][round(this.y)].left == false && this.x > 0 && this.dir != 2) {
+          if(this.mazeDir(round(this.x - 1),round(this.y))){
+            this.dir = 4;
+            break;
+          }
+        }
+        this.dir = 1;
+        this.spin();
+        break;
+      //there is not an indent error 
     }
   }
 }
