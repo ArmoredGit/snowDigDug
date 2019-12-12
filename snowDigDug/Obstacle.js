@@ -418,6 +418,64 @@ class Obstacle {
       return true;
     }
     maze[round(x)][round(y)] = false;
+    this.dir = 0;
+    let difq = abs((player1.y-this.y*1.0)) > abs((player1.x-this.x));
+    if(player1.y < this.y && difq){                
+      this.dir = 1;              
+    } else if(player1.x > this.x && !difq) {             
+      this.dir = 2;               
+    } else if(player1.y > this.y && difq) {               
+      this.dir = 3;              
+    } else if(player1.x < this.x && !difq) {              
+      this.dir = 4;                
+    }                
+    switch(round(this.dir)){
+      case 1:
+        if(!snowBlockArray[round(x)][round(y)].up && round(y) != 0){
+          if(maze[round(x)][round(y - 1)]){
+            if(this.mazeDir(round(x),round(y - 1))){
+              this.dist++;
+              print("!");
+              return true;
+            }
+          }
+        }
+        break;
+      case 2:
+        if(!snowBlockArray[round(x)][round(y)].right && round(x) != 13){
+          if(maze[round(x + 1)][round(y)]){
+            if(this.mazeDir(round(x + 1),round(y))){
+              this.dist++;
+              print("!");
+              return true;
+            }
+          }
+        }
+        break;
+      case 3:
+        if(!snowBlockArray[round(x)][round(y)].down && round(y) != 14){
+          if(maze[round(x)][round(y + 1)]){
+            if(this.mazeDir(round(x),round(y + 1))){
+              this.dist++;
+              print("!");
+              return true;
+            }
+          }
+        }
+        break;
+      case 4:
+        if(!snowBlockArray[round(x)][round(y)].left && round(x) != 0){
+          if(maze[round(x - 1)][round(y)]){
+            if(this.mazeDir(round(x - 1),round(y))){
+              this.dist++;
+              print("!");
+              return true;
+            }
+          }
+        }
+        break;
+    }
+    
     if(!snowBlockArray[round(x)][round(y)].up && round(y) != 0){
       if(maze[round(x)][round(y - 1)]){
         if(this.mazeDir(round(x),round(y - 1))){
