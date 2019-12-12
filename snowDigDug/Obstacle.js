@@ -171,7 +171,6 @@ class Obstacle {
                 this.distLeft = 1000;
               }
               
-              print("left " + this.distLeft + " right " + this.distRight + " down " + this.distDown + " up " + this.distUp);
               if(this.distLeft < this.distRight && this.distLeft < this.distUp && this.distLeft < this.distDown){
                 this.dir = 4;
               } else if(this.distLeft > this.distRight && this.distRight < this.distUp && this.distRight < this.distDown){
@@ -180,6 +179,22 @@ class Obstacle {
                 this.dir = 1;
               } else if(this.distDown <= this.distRight && this.distDown <= this.distUp && this.distLeft >= this.distDown){
                 this.dir = 3;
+              }
+              while(true){
+                if(this.dir == 1 && snowBlockArray[round(this.x)][round(this.y)].up == true){
+                  this.dir++;
+                } else if(this.dir == 3 && snowBlockArray[round(this.x)][round(this.y)].down == true){
+                  this.dir++;
+                } else if(this.dir == 2 && snowBlockArray[round(this.x)][round(this.y)].right == true){
+                  this.dir++;
+                } else if(this.dir == 4 && snowBlockArray[round(this.x)][round(this.y)].left == true){
+                  this.dir++;
+                } else {
+                  break;
+                }
+                while(this.dir > 4){
+                  this.dir -= 4;
+                }
               }
             }
           }
