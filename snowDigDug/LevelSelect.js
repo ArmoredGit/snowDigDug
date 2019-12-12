@@ -18,6 +18,13 @@ class LevelSelect{
     pumpKills=0;
     rockKills=0;
     started=false;
+    maze = [];
+    for(let i = 0; i < 14;i++){
+      maze[i] = [];
+      for(let j = 0; j < 15;j++){
+        maze[i][j] = false;
+      }
+    }
     for(let i = 0; i < 200;i++){
       snowflakeArray[i]= new Snow();
     }
@@ -180,6 +187,9 @@ class LevelSelect{
         obs.push(new Obstacle("drg",4,10));
         //end level 1 code
         break;
+    }
+    for(let i = 0; i < exp.length; i++){
+      maze[exp[i].x][exp[i].y] = true;
     }
   }
 }

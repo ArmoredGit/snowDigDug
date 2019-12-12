@@ -14,6 +14,7 @@ var levels;
 var playing;
 var exp;
 var rocksDropped;
+var maze;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
