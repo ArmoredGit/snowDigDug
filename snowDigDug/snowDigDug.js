@@ -74,25 +74,29 @@ function draw() {
     if(attacking){
       player1.attack();
       moving = false;
+      print(77);
     }
-    if(keyCode==UP_ARROW && moving){
+    
+    //calls to movement
+    if((keyCode==UP_ARROW || (mousPressed && mouseY > (2 * height / 18) + (width / 144) + (width / 36) && mouseY < (2 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(1);
       started=true;
       attacking = false;
-    } else if (keyCode==DOWN_ARROW && moving){
+    } else if ((keyCode==DOWN_ARROW || (mousPressed && mouseY > (5 * height / 18) + (width / 144) + (width / 36) && mouseY < (5 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(3);
       started=true;
       attacking = false;
-    } else if (keyCode==LEFT_ARROW && moving){
+    } else if ((keyCode==LEFT_ARROW ||  (mousPressed && mouseY > (8 * height / 18) + (width / 144) + (width / 36) && mouseY < (8 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(4);
       started=true;
       attacking = false;
-    } else if (keyCode==RIGHT_ARROW && moving){
+    } else if ((keyCode==RIGHT_ARROW ||  (mousPressed && mouseY > (11 * height / 18) + (width / 144) + (width / 36) && mouseY < (11 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(2);
       started=true;
       attacking = false;
     }
     
+    //draw, move, and kill for monsters 
     scoreBoard.show();
     obs.forEach(x => x.show());
     obs.forEach(x => x.move());
@@ -200,6 +204,28 @@ function draw() {
         } 
       } 
     }
+    
+    //buttons -- rect((width / 18 * x) + (height / 144), (2 * height / 18) + (height / 18 * y) + (width / 144), (22 * width / 144), (22 * height / 144));
+    fill(255);
+    stroke(255);
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    stroke(0);
+    textSize(height / 18);
+    text("--",(width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("^",(width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text(">",(width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("v",(width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("<",(width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    
+    //lower info pannel
+    textAlign(RIGHT);
+    textSize(height / 36);
+    text("level " + round(levels.level) + "\n/12",0, (17 * height / 18), (14 * height / 18), (height / 18));
+    textAlign(CENTER);
     
     //ending the level
     let j = true;
@@ -352,32 +378,15 @@ function mousePressed() {
   if(!playing){
     playing = true;
     levels.resetLevel();
-  }
-}
-
-function mouseDragged() {
-  started=true;
-  if((mouseY - pmouseY) > height / 40 ){
-    player1.move(3);
-    attacking = false;
-  } else if((pmouseY - mouseY) > height / 40 ){
-    player1.move(1);
-    attacking = false;
-  } else if((mouseX - pmouseX) > width / 40 ){
-    player1.move(2);
-    attacking = false;
-  } else if((pmouseX - mouseX) > width / 40 ){
-    player1.move(4);
-    attacking = false;
-  }
-}
-
-function mousePressed() {
-  if(!playing){
-    playing = true;
-    levels.resetLevel();
   } else {
-    attacking = true;
+    print(367);
+    if(mouseX<14 * width / 18 || mouseY > ((5 * height / 18) + (width / 144) + (width / 36))){
+      attacking = true;
+      print(370);
+    } else {
+      moving=true;
+      attacking = false;
+    }
   }
 }
 
