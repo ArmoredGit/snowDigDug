@@ -24,6 +24,7 @@ class Obstacle {
     this.distDown = 0;
     this.distLeft = 0;
     this.dist = 0;
+    this.kills = 0;
   }
 
   move() {
@@ -32,6 +33,27 @@ class Obstacle {
         this.inflate--;
         if(this.inflate > 100){
           this.dead = true;
+          if(abs((player1.y-this.y*1.0)) > abs((player1.x-this.x))){
+            if(levels.level > 12){
+              scoreBoard.add((this.type == "drg")?500:500);
+            } else if(levels.level > 8){
+              scoreBoard.add((this.type == "drg")?400:400);
+            } else if(levels.level > 4){
+              scoreBoard.add((this.type == "drg")?300:300);
+            } else { 
+              scoreBoard.add((this.type == "drg")?200:200);
+            }
+          } else {
+            if(levels.level > 12){
+              scoreBoard.add((this.type == "drg")?1000:500);
+            } else if(levels.level > 8){
+              scoreBoard.add((this.type == "drg")?800:400);
+            } else if(levels.level > 4){
+              scoreBoard.add((this.type == "drg")?600:300);
+            } else { 
+              scoreBoard.add((this.type == "drg")?400:200);
+            }
+          }
         }
       } else {
         //edge limits 

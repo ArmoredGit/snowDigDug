@@ -4,17 +4,17 @@ class ScoreBoard  {
     //this.playerName = playerName;
     this.score=0;
     this.survivedTime=0;
-    localScore=(500*pumpKills)+(1000*rockKills)+this.score;
+    localScore=0+this.score;
 }
   
   countScore(){
     this.score++;
-    localScore=(500*pumpKills)+(1000*rockKills)+round(this.score/5);
+    localScore=0+round(this.score);
   }
   
   add(amount){
     this.score += amount;
-    localScore=(500*pumpKills)+(1000*rockKills)+round(this.score/5);
+    localScore=0+round(this.score);
   }
   
   show(){

@@ -14,7 +14,6 @@ class LevelSelect{
     snowBlockArray = [];
     obs = [];
     exp = [];
-    localScore=0;
     pumpKills=0;
     rockKills=0;
     rocksDropped = 0;

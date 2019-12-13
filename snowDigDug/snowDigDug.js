@@ -24,6 +24,7 @@ function setup() {
   wsize = ((window.innerWidth > window.innerHeight)?(floor(window.innerHeight/18)*18):(floor(window.innerWidth/18)*18));
   createCanvas(wsize,wsize);
   background(31, 17, 120);
+  localScore=0;
   levels = new LevelSelect(1);
   levels.resetLevel();
   playing = false;
