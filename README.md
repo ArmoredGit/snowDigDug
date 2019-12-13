@@ -3,4 +3,4 @@
 
 currently working on updated version at 
 
-https://armoredgit.github.io/projects/dig.htm
+https://armoredgit.github.io/projects/dig.html
