@@ -427,6 +427,22 @@ class Obstacle {
         if(!obs[i].equals(this.id)){
           if(dist(obs[i].x,obs[i].y,this.x,this.y) < 0.9 && this.special){
             obs.splice(i,1);
+            this.kills++;
+            if(round(this.kills)==1){
+              scoreBoard.add(1000);
+            } else if(round(this.kills)==2){
+              scoreBoard.add(2000);
+            } else if(round(this.kills)==3){
+              scoreBoard.add(4000);
+            } else if(round(this.kills)==4){
+              scoreBoard.add(6000);
+            } else if(round(this.kills)==5){
+              scoreBoard.add(8000);
+            } else if(round(this.kills)==6){
+              scoreBoard.add(10000);
+            } else if(round(this.kills)==7){
+              scoreBoard.add(12000);
+            }
           }
         }
       }
