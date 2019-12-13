@@ -111,8 +111,44 @@ function draw() {
       noStroke();
       if(player1.x == 6 && player1.y == 7){
         rocksDropped = -10;
-        scoreBoard.add(500);
-      }
+        if(round(levels.level) == 1){
+          scoreBoard.add(400);
+        } else if(round(levels.level) == 2){
+          scoreBoard.add(600);
+        } else if(round(levels.level) == 3){
+          scoreBoard.add(800);
+        } else if(round(levels.level) == 4){
+          scoreBoard.add(1000);
+        } else if(round(levels.level) == 5){
+          scoreBoard.add(1000);
+        } else if(round(levels.level) == 6){
+          scoreBoard.add(2000);
+        } else if(round(levels.level) == 7){
+          scoreBoard.add(2000);
+        } else if(round(levels.level) == 8){
+          scoreBoard.add(3000);
+        } else if(round(levels.level) == 9){
+          scoreBoard.add(3000);
+        } else if(round(levels.level) == 10){
+          scoreBoard.add(4000);
+        } else if(round(levels.level) == 11){
+          scoreBoard.add(4000);
+        } else if(round(levels.level) == 12){
+          scoreBoard.add(5000);
+        } else if(round(levels.level) == 13){
+          scoreBoard.add(5000);
+        } else if(round(levels.level) == 14){
+          scoreBoard.add(6000);
+        } else if(round(levels.level) == 15){
+          scoreBoard.add(6000);
+        } else if(round(levels.level) == 16){
+          scoreBoard.add(7000);
+        } else if(round(levels.level) == 17){
+          scoreBoard.add(7000);
+        } else if(round(levels.level) >= 18){
+          scoreBoard.add(8000);
+        } 
+      } 
     }
     
     //ending the level
