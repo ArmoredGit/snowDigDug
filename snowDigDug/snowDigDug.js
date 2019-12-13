@@ -15,12 +15,14 @@ var playing;
 var exp;
 var rocksDropped;
 var maze;
+var wsize;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
 
 function setup() {
-  createCanvas(900,900);
+  wsize = ((window.innerWidth > window.innerHeight)?(floor(window.innerHeight/18)*18):(floor(window.innerWidth/18)*18));
+  createCanvas(wsize,wsize);
   background(31, 17, 120);
   levels = new LevelSelect(1);
   levels.resetLevel();
@@ -37,8 +39,8 @@ function draw() {
     timer++;
     textAlign(LEFT);
     let greeting = "Happy Holidays!";
-    let x1 = 165;
-    let y1 = 85;
+    let x1 = 3*width/18;
+    let y1 = height/18;
     noStroke();
     textSize(height / 18);
     if((timer)%50<=5){

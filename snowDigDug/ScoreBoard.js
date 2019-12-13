@@ -20,9 +20,9 @@ class ScoreBoard  {
   show(){
     fill(255,255,255);
     textAlign(CENTER);
-    textSize(30);
-    text("Scoreboard:", 800, 40);
-    textSize(20);
-    text("Player Score:\n" + localScore, 800, 80);
+    textSize(height/30);
+    text("Scoreboard:", 8*width/9, height/22);
+    textSize(height/45);
+    text("Player Score:\n" + localScore, 8*width/9, height/11);
   }
 }
