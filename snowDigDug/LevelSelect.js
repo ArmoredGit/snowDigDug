@@ -17,6 +17,7 @@ class LevelSelect{
     localScore=0;
     pumpKills=0;
     rockKills=0;
+    rocksDropped = 0;
     started=false;
     maze = [];
     for(let i = 0; i < 14;i++){
