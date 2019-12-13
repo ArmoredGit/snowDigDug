@@ -105,8 +105,58 @@ function draw() {
     
     //fruit -- this sort of works
     if(rocksDropped >= 2){
-      fill("pink");
-      stroke(255);
+      stroke("black");
+      if(round(levels.level) == 1){
+        fill("red");
+      } else if(round(levels.level) == 2){
+        fill("white");
+      } else if(round(levels.level) == 3){
+        fill("red");
+        stroke("brown");
+      } else if(round(levels.level) == 4){
+        fill("green");
+        stroke("white");
+      } else if(round(levels.level) == 5){
+        fill("green");
+        stroke("white");
+      } else if(round(levels.level) == 6){
+        fill("purple");
+        stroke("blue");
+      } else if(round(levels.level) == 7){
+        fill("purple");
+        stroke("blue");
+      } else if(round(levels.level) == 8){
+        fill("brown");
+        stroke("green");
+      } else if(round(levels.level) == 9){
+        fill("brown");
+        stroke("green");
+      } else if(round(levels.level) == 10){
+        fill("red");
+      } else if(round(levels.level) == 11){
+        fill("red");
+      } else if(round(levels.level) == 12){
+        fill("orange");
+        stroke("yellow");
+      } else if(round(levels.level) == 13){
+        fill("orange");
+        stroke("yellow");
+      } else if(round(levels.level) == 14){
+        fill("red");
+        stroke("green");
+      } else if(round(levels.level) == 15){
+        fill("red");
+        stroke("green");
+      } else if(round(levels.level) == 16){
+        fill("yellow");
+        stroke("blue");
+      } else if(round(levels.level) == 17){
+        fill("yellow");
+        stroke("blue");
+      } else if(round(levels.level) >= 18){
+        fill("yellow");
+        stroke("white");
+      } 
       rect((width / 18 * 6) + (height / 72), (2 * height / 18) + (height / 18 * 7) + (width / 72), (2 * width / 72), (2 * height / 72));
       noStroke();
       if(player1.x == 6 && player1.y == 7){
