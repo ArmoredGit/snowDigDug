@@ -84,8 +84,10 @@ class Obstacle {
                   maze[i][j] = false;
                 }
               }
-              for(let i = 0; i < exp.length; i++){
-                maze[round(exp[i].x)][round(exp[i].y)] = true;
+              for(let i = 0; i < 14;i++){
+                for(let j = 0; j < 15;j++){
+                  maze[i][j] = !snowBlockArray[i][j].fill;
+                }
               }
               maze[round(this.x)][round(this.y)] = false;
               
@@ -112,8 +114,10 @@ class Obstacle {
                   maze[i][j] = false;
                 }
               }
-              for(let i = 0; i < exp.length; i++){
-                maze[round(exp[i].x)][round(exp[i].y)] = true;
+              for(let i = 0; i < 14;i++){
+                for(let j = 0; j < 15;j++){
+                  maze[i][j] = !snowBlockArray[i][j].fill;
+                }
               }
               maze[round(this.x)][round(this.y)] = false;
               this.dist = 0;
@@ -134,8 +138,10 @@ class Obstacle {
                   maze[i][j] = false;
                 }
               }
-              for(let i = 0; i < exp.length; i++){
-                maze[round(exp[i].x)][round(exp[i].y)] = true;
+              for(let i = 0; i < 14;i++){
+                for(let j = 0; j < 15;j++){
+                  maze[i][j] = !snowBlockArray[i][j].fill;
+                }
               }
               maze[round(this.x)][round(this.y)] = false;
               this.dist = 0;
@@ -156,8 +162,10 @@ class Obstacle {
                   maze[i][j] = false;
                 }
               }
-              for(let i = 0; i < exp.length; i++){
-                maze[round(exp[i].x)][round(exp[i].y)] = true;
+              for(let i = 0; i < 14;i++){
+                for(let j = 0; j < 15;j++){
+                  maze[i][j] = !snowBlockArray[i][j].fill;
+                }
               }
               maze[round(this.x)][round(this.y)] = false;
               this.dist = 0;
