@@ -6,8 +6,6 @@ var attacking;
 var started;
 var obs;
 var localScore;
-var pumpKills;
-var rockKills;
 var scoreBoard;
 var timer;
 var levels;
@@ -16,6 +14,10 @@ var exp;
 var rocksDropped;
 var maze;
 var wsize;
+var QR;
+var hint;
+var HighScore;
+var onUp;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
@@ -24,10 +26,31 @@ function setup() {
   wsize = ((window.innerWidth > window.innerHeight)?(floor(window.innerHeight/18)*18):(floor(window.innerWidth/18)*18));
   createCanvas(wsize,wsize);
   background(31, 17, 120);
+  scoreBoard=new ScoreBoard();
+  HighScore = 1000;
+  onUp = 0;
+  player1 = new Player(6,7);
+  QR = loadImage("/projects/snowDigDug/pics/qr-code.png");
+  hint = loadImage("/projects/snowDigDug/pics/ins.png");
   localScore=0;
   levels = new LevelSelect(1);
   levels.resetLevel();
   playing = false;
+}
+
+function GameEnd() {
+  wsize = ((window.innerWidth > window.innerHeight)?(floor(window.innerHeight/18)*18):(floor(window.innerWidth/18)*18));
+  createCanvas(wsize,wsize);
+  background(31, 17, 120);
+  player1 = new Player(6,7);
+  scoreBoard.endOfGame();
+  QR = loadImage("/projects/snowDigDug/pics/qr-code.png");
+  hint = loadImage("/projects/snowDigDug/pics/ins.png");
+  localScore=0;
+  levels = new LevelSelect(1);
+  levels.resetLevel();
+  playing = false;
+  textAlign(CENTER,TOP);
 }
 
 
@@ -74,23 +97,22 @@ function draw() {
     if(attacking){
       player1.attack();
       moving = false;
-      print(77);
     }
     
     //calls to movement
-    if((keyCode==UP_ARROW || (mousPressed && mouseY > (2 * height / 18) + (width / 144) + (width / 36) && mouseY < (2 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
+    if((keyCode==UP_ARROW || (mouseX > (14 * width / 18) && mousePressed && mouseY > (5 * height / 18) + (width / 144) + (width / 36) && mouseY < (5 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(1);
       started=true;
       attacking = false;
-    } else if ((keyCode==DOWN_ARROW || (mousPressed && mouseY > (5 * height / 18) + (width / 144) + (width / 36) && mouseY < (5 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
+    } else if ((keyCode==DOWN_ARROW || (mouseX > (14 * width / 18) && mousePressed && mouseY > (8 * height / 18) + (width / 144) + (width / 36) && mouseY < (8 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(3);
       started=true;
       attacking = false;
-    } else if ((keyCode==LEFT_ARROW ||  (mousPressed && mouseY > (8 * height / 18) + (width / 144) + (width / 36) && mouseY < (8 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
+    } else if ((keyCode==LEFT_ARROW ||  (mouseX > (14 * width / 18) && mousePressed && mouseY > (11 * height / 18) + (width / 144) + (width / 36) && mouseY < (11 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(4);
       started=true;
       attacking = false;
-    } else if ((keyCode==RIGHT_ARROW ||  (mousPressed && mouseY > (11 * height / 18) + (width / 144) + (width / 36) && mouseY < (11 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
+    } else if ((keyCode==RIGHT_ARROW ||  (mouseX > (14 * width / 18) && mousePressed && mouseY > (14 * height / 18) + (width / 144) + (width / 36) && mouseY < (14 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(2);
       started=true;
       attacking = false;
@@ -163,7 +185,7 @@ function draw() {
       } 
       rect((width / 18 * 6) + (height / 72), (2 * height / 18) + (height / 18 * 7) + (width / 72), (2 * width / 72), (2 * height / 72));
       noStroke();
-      if(player1.x == 6 && player1.y == 7){
+      if(round(player1.x) == 6 && round(player1.y) == 7){
         rocksDropped = -10;
         if(round(levels.level) == 1){
           scoreBoard.add(400);
@@ -208,29 +230,30 @@ function draw() {
     //buttons -- rect((width / 18 * x) + (height / 144), (2 * height / 18) + (height / 18 * y) + (width / 144), (22 * width / 144), (22 * height / 144));
     fill(255);
     stroke(255);
-    rect((width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    image(QR,(width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     rect((width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     rect((width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     rect((width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     rect((width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     stroke(0);
+    fill(0);
     textSize(height / 18);
-    text("--",(width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    textAlign(CENTER,CENTER);
     text("^",(width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
-    text(">",(width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
-    text("v",(width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
-    text("<",(width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("v",(width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("<",(width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text(">",(width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     
     //lower info pannel
     textAlign(RIGHT);
     textSize(height / 36);
     text("level " + round(levels.level) + "\n/12",0, (17 * height / 18), (14 * height / 18), (height / 18));
-    textAlign(CENTER);
+    textAlign(CENTER, TOP);
     
     //ending the level
     let j = true;
     for(let i = obs.length-1; i >= 0; i--){
-      if(obs[i].type != "rock"){
+      if((obs[i].type != "rock") && !(round(obs[i].x) == 0 && round(obs[i].y) == 0)){
         j = false;
       }
     }
@@ -248,37 +271,42 @@ function draw() {
       fill(0,255,0);
     }
     if(timer < 500){
+      image(QR,(width / 18) - (height/36), (height / 18) - (height/36) + (height) - (timer * height / 500), (4 * width / 18) + (height/36), (4 * height / 18) + (height/36));
+      image(QR,(width / 18 * 13), (height / 18) - (height/36) + (height) - (timer * height / 500), (4 * width / 18) + (height/36), (4 * height / 18) + (height/36));
       textAlign(CENTER);
       textSize(height / 36);
-      text("MERRY CHRISTMAS",0,2*height/9 + (height) - (timer * height / 500),width,height/3 + (height) - (timer * height / 500));
+      text("MERRY CHRISTMAS",0,2*height/9 + (height) - (timer * height / 500),width,height/3);
       textSize(height / 9);
-      text("DIG DUG",0,3*height/9 + (height) - (timer * height / 500),width,4*height/9 + (height) - (timer * height / 500));
+      text("DIG DUG",0,3*height/9 + (height) - (timer * height / 500),width,4*height/9);
       textSize(height / 36);
-      text("1UP      HIGH SCORE         ",0,height/18 + (height) - (timer * height / 500),width,height/9 + (height) - (timer * height / 500));
+      text("1UP      HIGH SCORE         ",0,height/18 + (height) - (timer * height / 500),width,height/9);
       textSize(height / 36);
-      text("CHARACTER",0,4*height/9 + (height) - (timer * height / 500),width,5*height/9 + (height) - (timer * height / 500));
+      text("CHARACTER",0,4*height/9 + (height) - (timer * height / 500),width,5*height/9);
       textSize(height / 36);
-      text("POOKA                   FYGAR",0,5*height/9 + (height) - (timer * height / 500),width,6*height/9 + (height) - (timer * height / 500));
+      text("POOKA                   FYGAR",0,5*height/9 + (height) - (timer * height / 500),width,6*height/9);
       textSize(height / 36);
       fill("white");
-      text("BASED ON A NAMCO GAME\nREPRODUCED BY M.LESKA & N.RUDD",0,6*height/9 + (height) - (timer * height / 500),width,7*height/9 + (height) - (timer * height / 500));
+      text("BASED ON A NAMCO GAME\nREPRODUCED BY M.LESKA & N.RUDD",0,6*height/9 + (height) - (timer * height / 500),width,7*height/9);
       textSize(height / 36);
-      text("CREDIT  INF                                ROUND 1",0,17*height/18 + (height) - (timer * height / 500),width,8*height/9 + (height) - (timer * height / 500));
-      text("\n[    press any key to begin    ]",0,2*height/9 + (height) - (timer * height / 500),width,height/3 + (height) - (timer * height / 500));
-      text("\n00           000000             ",0,height/18 + (height) - (timer * height / 500),width,height/9 + (height) - (timer * height / 500));
+      text("CREDIT  INF                                ROUND 1",0,17*height/18 + (height) - (timer * height / 500),width,8*height/9);
+      text("\n[    press any key to begin    ]",0,2*height/9 + (height) - (timer * height / 500),width,height/3);
+      text("\n" + onUp + "          " + HighScore + "             ",0,height/18 + (height) - (timer * height / 500),width,height/9);
       fill("red");
-      rect((width / 18 * 6) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      rect((width / 18 * 6) + (width / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * (height / 500)), width / 18, height / 18);
       fill("green");
-      rect((width / 18 * 10) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      rect((width / 18 * 10) + (width / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * (height / 500)), width / 18, height / 18);
       fill("orange");
       if((timer)%50<=25){
-        rect((width / 18 * 11) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+        rect((width / 18 * 11) + (width / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * (height / 500)), width / 18, height / 18);
       }
       fill("black");
       stroke("white");
-      rect((width / 18 * 8) + (height / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
+      rect((width / 18 * 8) + (width / 36), (height / 18 * 7) + (2 * height / 18) + (height) - (timer * height / 500), width / 18, height / 18);
       noStroke();
+      image(hint,(width / 18 * 6), (14 * height / 18) + (height) - (timer * height / 500), (width / 3), (height / 9));
     } else if(timer < 800){
+      image(QR,(width / 18) - (width/36), (height / 18) - (height/36), (4 * width / 18) + (height/36), (4 * height / 18) + (height/36));
+      image(QR,(width / 18 * 13), (height / 18) - (height/36), (4 * width / 18) + (height/36), (4 * height / 18) + (height/36));
       textAlign(CENTER);
       textSize(height / 36);
       text("MERRY CHRISTMAS",0,2*height/9,width,height/3);
@@ -296,19 +324,20 @@ function draw() {
       textSize(height / 36);
       text("CREDIT  INF                                ROUND " + levels.level,0,17*height/18,width,8*height/9);
       text("\n[    press any key to begin    ]",0,2*height/9,width,height/3);
-      text("\n00           000000             ",0,height/18,width,height/9);
+      text("\n" + onUp + "          " + HighScore + "             ",0,height/18,width,height/9);
       fill("red");
-      rect((width / 18 * 6) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      rect((width / 18 * 6) + (width / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
       fill("green");
-      rect((width / 18 * 10) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      rect((width / 18 * 10) + (width / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
       fill("orange");
       if((timer)%50<=25){
-        rect((width / 18 * 11) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+        rect((width / 18 * 11) + (width / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
       }
       fill("black");
       stroke("white");
-      rect((width / 18 * 8) + (height / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
+      rect((width / 18 * 8) + (width / 36), (height / 18 * 7) + (2 * height / 18), width / 18, height / 18);
       noStroke();
+      image(hint,(width / 18 * 6), (14 * height / 18), (width / 3), (height / 9));
     } else if(timer < 1500){
       background(0);
       background(31, 17, 120);
@@ -359,14 +388,13 @@ function draw() {
         player1.move(2);
       }
       scoreBoard.show();
+      for(let i = 0; i < obs.length; i++){
+        obs[i].burrough = false;
+        obs[i].wander = true;
+      }
       obs.forEach(x => x.show());
       obs.forEach(x => x.move());
-      obs.forEach(x => x.kill());
-      for(let i = obs.length-1; i >= 0; i--){
-        if(obs[i].dead){
-          obs.splice(i,1);
-        }
-      }
+      image(QR,(width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
     } else {
       timer = 0;
       levels.resetLevel();
@@ -379,11 +407,10 @@ function mousePressed() {
     playing = true;
     levels.resetLevel();
   } else {
-    print(367);
-    if(mouseX<14 * width / 18 || mouseY > ((5 * height / 18) + (width / 144) + (width / 36))){
+    if(mouseX<14 * width / 18 || mouseY < ((5 * height / 18) + (width / 144) + (width / 36))){
       attacking = true;
-      print(370);
     } else {
+      print("hi");
       moving=true;
       attacking = false;
     }
@@ -392,6 +419,7 @@ function mousePressed() {
 
 function mouseReleased() {
   attacking = false;
+  moving=false;
 }
 
 function keyPressed() {

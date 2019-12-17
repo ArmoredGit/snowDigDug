@@ -25,15 +25,31 @@ class Obstacle {
     this.distLeft = 0;
     this.dist = 0;
     this.kills = 0;
+    this.TargetX = player1.x;
+    this.TargetY = player1.y;
   }
 
   move() {
+    if(!this.burrough || this.tic == 1 || this.tic == 65) {
+      this.TargetX = player1.x;
+      this.TargetY = player1.y;
+      let j = true;
+      for(let i = obs.length-1; i >= 0; i--){
+        if(obs[i].type != "rock" && !obs[i].equals(this.id)){
+          j = false;
+        }
+      }
+      if(j){
+        this.TargetX = 0;
+        this.TargetY = 0;
+      }
+    } 
     if (this.type == "drg" || this.type == "puf") {
       if(this.inflate > 0){
         this.inflate--;
         if(this.inflate > 100){
           this.dead = true;
-          if(abs((player1.y-this.y*1.0)) > abs((player1.x-this.x))){
+          if(abs((this.TargetY-this.y*1.0)) > abs((this.TargetX-this.x))){
             if(levels.level > 12){
               scoreBoard.add((this.type == "drg")?500:500);
             } else if(levels.level > 8){
@@ -96,7 +112,41 @@ class Obstacle {
           }
         } else {
           if(this.burrough){
-            
+            if(round(this.x) == round(this.TargetX) && round(this.y) == round(this.TargetY)){
+              this.burrough = false;
+            }
+            if((round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0) && !(round(this.x) == round(this.TargetX) && round(this.y) == round(this.TargetY))){ // --------------------------------------------------
+              this.dir = 0;
+              let difq = abs((this.TargetY-this.y*1.0)) > abs((this.TargetX-this.x));
+              if(this.TargetY < this.y && difq){                
+                this.dir = 1;              
+              } else if(this.TargetX > this.x && !difq) {             
+                this.dir = 2;               
+              } else if(this.TargetY > this.y && difq) {               
+                this.dir = 3;              
+              } else if(this.TargetX < this.x && !difq) {              
+                this.dir = 4;                
+              } 
+            }
+            for(let i = obs.length - 1; i >= 0; i--){
+              if(this.dir == 1){
+                if(dist(obs[i].x,obs[i].y,this.x,this.y - 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+                  this.dir = 2;
+                }
+              } else if(this.dir == 2){
+                if(dist(obs[i].x,obs[i].y,this.x + 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+                  this.dir = 3;
+                }
+              } else if(this.dir == 3){
+                if(dist(obs[i].x,obs[i].y,this.x,this.y + 1) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+                  this.dir = 4;
+                }
+              } else if(this.dir == 4){
+                if(dist(obs[i].x,obs[i].y,this.x - 1,this.y) < 0.1 && !obs[i].special && obs[i].type == "rock"){
+                  this.dir = 1;
+                }
+              }
+            }
           } else {
             if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0){
               maze = [];
@@ -240,6 +290,10 @@ class Obstacle {
         if(j != 0){
           this.wander = false;
           this.burrough = false;
+        } 
+        if(round(this.y * 100) % 100 == 0 && round(this.x * 100) % 100 == 0 && random([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]) == 20){
+          this.wander = false;
+          this.burrough = true;
         }
         
         //direction is 1 == up,2 == right,3 == down,4 == left
@@ -314,7 +368,7 @@ class Obstacle {
     } else if (this.type == "rock") { // rocks, yeah that
       if (this.special == false) {
         if (this.y < 13) {
-          if (!snowBlockArray[round(this.x)][round(this.y + 1)].fill && dist(this.x, (this.y + 1), player1.x, player1.y) > 0.9) {
+          if (!snowBlockArray[round(this.x)][round(this.y + 1)].fill && dist(this.x, (this.y + 1), this.TargetX, this.TargetY) > 0.9) {
             this.special = true;
             this.tic = 0;
           }
@@ -452,19 +506,19 @@ class Obstacle {
     if(!maze[round(x)][round(y)]){
       return false;
     }
-    if(round(x) == round(player1.x) && round(y) == round(player1.y)){
+    if(round(x) == round(this.TargetX) && round(y) == round(this.TargetY)){
       return true;
     }
     maze[round(x)][round(y)] = false;
     this.dir = 0;
-    let difq = abs((player1.y-this.y*1.0)) > abs((player1.x-this.x));
-    if(player1.y < this.y && difq){                
+    let difq = abs((this.TargetY-this.y*1.0)) > abs((this.TargetX-this.x));
+    if(this.TargetY < this.y && difq){                
       this.dir = 1;              
-    } else if(player1.x > this.x && !difq) {             
+    } else if(this.TargetX > this.x && !difq) {             
       this.dir = 2;               
-    } else if(player1.y > this.y && difq) {               
+    } else if(this.TargetY > this.y && difq) {               
       this.dir = 3;              
-    } else if(player1.x < this.x && !difq) {              
+    } else if(this.TargetX < this.x && !difq) {              
       this.dir = 4;                
     }                
     switch(round(this.dir)){

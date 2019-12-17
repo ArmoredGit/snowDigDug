@@ -9,13 +9,10 @@ class LevelSelect{
   
   resetLevel(){
     timer=0;
-    scoreBoard=new ScoreBoard();
     snowflakeArray = [];
     snowBlockArray = [];
     obs = [];
     exp = [];
-    pumpKills=0;
-    rockKills=0;
     rocksDropped = 0;
     started=false;
     maze = [];
@@ -69,7 +66,8 @@ class LevelSelect{
     exp.push({"x":6,"y":7,});
     exp.push({"x":7,"y":7,});
   
-    player1 = new Player(6,7);
+    player1.x = 6;
+    player1.y = 7;
     moving=false;
     rocksDropped = 0;
      
@@ -124,9 +122,8 @@ class LevelSelect{
         obs.push(new Obstacle("puf",1,9));
         obs.push(new Obstacle("drg",10,3));
         obs.push(new Obstacle("drg",10,11));
-      break;
-        
-      case 3:
+        break;
+            case 3:
         //level 3 code
         snowBlockArray[1][5].fill = false;
         snowBlockArray[1][5].right = false;
@@ -291,7 +288,6 @@ class LevelSelect{
         obs.push(new Obstacle("drg",4,9));
         obs.push(new Obstacle("drg",10,10));
       break;
-      
       default:
         //level 1 code
         snowBlockArray[1][2].fill = false;
