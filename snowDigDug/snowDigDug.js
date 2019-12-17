@@ -15,13 +15,16 @@ var playing;
 var exp;
 var rocksDropped;
 var maze;
+var wsize;
 
 //https://i1.wp.com/www.edcollins.com/digdug/digdug-grid.gif image of dig dug game
 //DigDug functions: http://www.edcollins.com/digdug/#:~:targetText=You%20score%20more%20points%20if,it%2C%20squashing%20it%20to%20death.
 
 function setup() {
-  createCanvas(900,900);
+  wsize = ((window.innerWidth > window.innerHeight)?(floor(window.innerHeight/18)*18):(floor(window.innerWidth/18)*18));
+  createCanvas(wsize,wsize);
   background(31, 17, 120);
+  localScore=0;
   levels = new LevelSelect(1);
   levels.resetLevel();
   playing = false;
@@ -37,8 +40,8 @@ function draw() {
     timer++;
     textAlign(LEFT);
     let greeting = "Happy Holidays!";
-    let x1 = 165;
-    let y1 = 85;
+    let x1 = 3*width/18;
+    let y1 = height/18;
     noStroke();
     textSize(height / 18);
     if((timer)%50<=5){
@@ -71,25 +74,29 @@ function draw() {
     if(attacking){
       player1.attack();
       moving = false;
+      print(77);
     }
-    if(keyCode==UP_ARROW && moving){
+    
+    //calls to movement
+    if((keyCode==UP_ARROW || (mousPressed && mouseY > (2 * height / 18) + (width / 144) + (width / 36) && mouseY < (2 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(1);
       started=true;
       attacking = false;
-    } else if (keyCode==DOWN_ARROW && moving){
+    } else if ((keyCode==DOWN_ARROW || (mousPressed && mouseY > (5 * height / 18) + (width / 144) + (width / 36) && mouseY < (5 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(3);
       started=true;
       attacking = false;
-    } else if (keyCode==LEFT_ARROW && moving){
+    } else if ((keyCode==LEFT_ARROW ||  (mousPressed && mouseY > (8 * height / 18) + (width / 144) + (width / 36) && mouseY < (8 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(4);
       started=true;
       attacking = false;
-    } else if (keyCode==RIGHT_ARROW && moving){
+    } else if ((keyCode==RIGHT_ARROW ||  (mousPressed && mouseY > (11 * height / 18) + (width / 144) + (width / 36) && mouseY < (11 * height / 18) + (width / 144) + (width / 36) + (22 * height / 144))) && moving){
       player1.move(2);
       started=true;
       attacking = false;
     }
     
+    //draw, move, and kill for monsters 
     scoreBoard.show();
     obs.forEach(x => x.show());
     obs.forEach(x => x.move());
@@ -102,24 +109,132 @@ function draw() {
     
     //fruit -- this sort of works
     if(rocksDropped >= 2){
-      fill("pink");
-      stroke(255);
+      stroke("black");
+      if(round(levels.level) == 1){
+        fill("red");
+      } else if(round(levels.level) == 2){
+        fill("white");
+      } else if(round(levels.level) == 3){
+        fill("red");
+        stroke("brown");
+      } else if(round(levels.level) == 4){
+        fill("green");
+        stroke("white");
+      } else if(round(levels.level) == 5){
+        fill("green");
+        stroke("white");
+      } else if(round(levels.level) == 6){
+        fill("purple");
+        stroke("blue");
+      } else if(round(levels.level) == 7){
+        fill("purple");
+        stroke("blue");
+      } else if(round(levels.level) == 8){
+        fill("brown");
+        stroke("green");
+      } else if(round(levels.level) == 9){
+        fill("brown");
+        stroke("green");
+      } else if(round(levels.level) == 10){
+        fill("red");
+      } else if(round(levels.level) == 11){
+        fill("red");
+      } else if(round(levels.level) == 12){
+        fill("orange");
+        stroke("yellow");
+      } else if(round(levels.level) == 13){
+        fill("orange");
+        stroke("yellow");
+      } else if(round(levels.level) == 14){
+        fill("red");
+        stroke("green");
+      } else if(round(levels.level) == 15){
+        fill("red");
+        stroke("green");
+      } else if(round(levels.level) == 16){
+        fill("yellow");
+        stroke("blue");
+      } else if(round(levels.level) == 17){
+        fill("yellow");
+        stroke("blue");
+      } else if(round(levels.level) >= 18){
+        fill("yellow");
+        stroke("white");
+      } 
       rect((width / 18 * 6) + (height / 72), (2 * height / 18) + (height / 18 * 7) + (width / 72), (2 * width / 72), (2 * height / 72));
       noStroke();
       if(player1.x == 6 && player1.y == 7){
         rocksDropped = -10;
-        scoreBoard.add(500);
-      }
+        if(round(levels.level) == 1){
+          scoreBoard.add(400);
+        } else if(round(levels.level) == 2){
+          scoreBoard.add(600);
+        } else if(round(levels.level) == 3){
+          scoreBoard.add(800);
+        } else if(round(levels.level) == 4){
+          scoreBoard.add(1000);
+        } else if(round(levels.level) == 5){
+          scoreBoard.add(1000);
+        } else if(round(levels.level) == 6){
+          scoreBoard.add(2000);
+        } else if(round(levels.level) == 7){
+          scoreBoard.add(2000);
+        } else if(round(levels.level) == 8){
+          scoreBoard.add(3000);
+        } else if(round(levels.level) == 9){
+          scoreBoard.add(3000);
+        } else if(round(levels.level) == 10){
+          scoreBoard.add(4000);
+        } else if(round(levels.level) == 11){
+          scoreBoard.add(4000);
+        } else if(round(levels.level) == 12){
+          scoreBoard.add(5000);
+        } else if(round(levels.level) == 13){
+          scoreBoard.add(5000);
+        } else if(round(levels.level) == 14){
+          scoreBoard.add(6000);
+        } else if(round(levels.level) == 15){
+          scoreBoard.add(6000);
+        } else if(round(levels.level) == 16){
+          scoreBoard.add(7000);
+        } else if(round(levels.level) == 17){
+          scoreBoard.add(7000);
+        } else if(round(levels.level) >= 18){
+          scoreBoard.add(8000);
+        } 
+      } 
     }
     
+    //buttons -- rect((width / 18 * x) + (height / 144), (2 * height / 18) + (height / 18 * y) + (width / 144), (22 * width / 144), (22 * height / 144));
+    fill(255);
+    stroke(255);
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    rect((width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    stroke(0);
+    textSize(height / 18);
+    text("--",(width / 18 * 14) + (height / 144) + (width / 36), (2 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("^",(width / 18 * 14) + (height / 144) + (width / 36), (5 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text(">",(width / 18 * 14) + (height / 144) + (width / 36), (8 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("v",(width / 18 * 14) + (height / 144) + (width / 36), (11 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    text("<",(width / 18 * 14) + (height / 144) + (width / 36), (14 * height / 18) + (width / 144) + (width / 36), (22 * width / 144), (22 * height / 144));
+    
+    //lower info pannel
+    textAlign(RIGHT);
+    textSize(height / 36);
+    text("level " + round(levels.level) + "\n/12",0, (17 * height / 18), (14 * height / 18), (height / 18));
+    textAlign(CENTER);
+    
     //ending the level
-    let j = 0;
+    let j = true;
     for(let i = obs.length-1; i >= 0; i--){
       if(obs[i].type != "rock"){
-        j++;
+        j = false;
       }
     }
-    if(j == 0){
+    if(j){
       levels.setLevel(levels.level + 1);
       levels.resetLevel();
     }
@@ -263,32 +378,15 @@ function mousePressed() {
   if(!playing){
     playing = true;
     levels.resetLevel();
-  }
-}
-
-function mouseDragged() {
-  started=true;
-  if((mouseY - pmouseY) > height / 40 ){
-    player1.move(3);
-    attacking = false;
-  } else if((pmouseY - mouseY) > height / 40 ){
-    player1.move(1);
-    attacking = false;
-  } else if((mouseX - pmouseX) > width / 40 ){
-    player1.move(2);
-    attacking = false;
-  } else if((pmouseX - mouseX) > width / 40 ){
-    player1.move(4);
-    attacking = false;
-  }
-}
-
-function mousePressed() {
-  if(!playing){
-    playing = true;
-    levels.resetLevel();
   } else {
-    attacking = true;
+    print(367);
+    if(mouseX<14 * width / 18 || mouseY > ((5 * height / 18) + (width / 144) + (width / 36))){
+      attacking = true;
+      print(370);
+    } else {
+      moving=true;
+      attacking = false;
+    }
   }
 }
 

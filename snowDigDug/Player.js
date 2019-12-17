@@ -5,12 +5,16 @@ class Player  {
     this.x = x;
     this.y = y;
     this.dir = 1;
+    this.lives = 3;
   }
   
   show(){
     fill(0);
     stroke(255);
     rect((width / 18 * this.x) + (height / 144), (2 * height / 18) + (height / 18 * this.y) + (width / 144), (6 * width / 144), (6 * height / 144));
+    for(let i = 0; i < round(this.lives); i++){
+      rect((width / 18 * i) + (height / 144), (17 * height / 18) + (width / 144), (6 * width / 144), (6 * height / 144));
+    }
     stroke(0);
   }
   
@@ -95,11 +99,11 @@ class Player  {
     //romoving snow
     if(round((this.y * 100)) % 100 == 50){
       if(snowBlockArray[round(this.x)][floor(this.y)].fill){
-        scoreBoard.add(50);
+        scoreBoard.add(10);
         exp.push({"x":round(this.x),"y":floor(this.y),});
       }
       if(snowBlockArray[round(this.x)][ceil(this.y)].fill){
-        scoreBoard.add(50);
+        scoreBoard.add(10);
         exp.push({"x":round(this.x),"y":ceil(this.y),});
       }
       snowBlockArray[round(this.x)][floor(this.y)].fill = false;
@@ -108,11 +112,11 @@ class Player  {
       snowBlockArray[round(this.x)][ceil(this.y)].up = false;
     } else if(round((this.x * 100)) % 100 == 50){
       if(snowBlockArray[floor(this.x)][round(this.y)].fill){
-        scoreBoard.add(50);
+        scoreBoard.add(10);
         exp.push({"x":floor(this.x),"y":round(this.y),});
       }
       if(snowBlockArray[ceil(this.x)][round(this.y)].fill){
-        scoreBoard.add(50);
+        scoreBoard.add(10);
         exp.push({"x":ceil(this.x),"y":round(this.y),});
       }
       snowBlockArray[floor(this.x)][round(this.y)].fill = false;
@@ -137,6 +141,7 @@ class Player  {
   reset(){ //for when player is killed
     this.x = 6;
     this.y = 7;
+    this.lives--;
   }
   
   attack(){ // air pump weapon

@@ -2,8 +2,8 @@ class Snow{
   constructor() {
     this.x = random(width / 9 * 7);
     this.y = random(-50,-10);
-    this.speed=random(5)+3;
-    this.size=random(10);
+    this.speed=random(width/180)+width/270;
+    this.size=random(width/90);
   }
   
   show(){
@@ -18,7 +18,7 @@ class Snow{
       if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (2 * height / 18)) / (height / 18))].up){
         this.y=-10;
         this.x=random(width / 9 * 7);
-        this.size=random(10);
+        this.size=random(width/90);
       }
     }
   }
@@ -28,8 +28,8 @@ class RedSnow{
   constructor() {
     this.x = random(width / 9 * 7);
     this.y = random(-50,-10);
-    this.speed=random(5)+3;
-    this.size=random(10);
+    this.speed=random(width/180)+width/270;
+    this.size=random(width/90);
   }
   
   show(){
@@ -44,7 +44,7 @@ class RedSnow{
       if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (2 * height / 18)) / (height / 18))].up){
         this.y=-10;
         this.x=random(width / 9 * 7);
-        this.size=random(10);
+        this.size=random(width/90);
       }
     }
   }
@@ -53,8 +53,8 @@ class GreenSnow{
   constructor() {
     this.x = random(width / 9 * 7);
     this.y = random(-50,-10);
-    this.speed=random(5)+3;
-    this.size=random(10);
+    this.speed=random(width/180)+width/270;
+    this.size=random(width/90);
   }
   
   show(){
@@ -69,7 +69,7 @@ class GreenSnow{
       if (this.y>(height / 18 *17-3) || snowBlockArray[floor(this.x / (width / 18))][floor((this.y - (2 * height / 18)) / (height / 18))].up){
         this.y=-10;
         this.x=random(width / 9 * 7);
-        this.size=random(10);
+        this.size=random(width/90);
       }
     }
   }
