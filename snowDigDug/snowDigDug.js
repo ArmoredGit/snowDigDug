@@ -58,8 +58,8 @@ function draw() {
   if(playing){
     background(31, 17, 120);
     noStroke();
-    fill(0, 121, 163);
-    rect(0, width / 18 *17, 800, 900-(width / 18 *17));
+    fill(22, 75, 75);
+    rect(0, (width / 18) * 3, width, (height / 18) *15);
     timer++;
     textAlign(LEFT);
     let greeting = "Happy Holidays!";
@@ -342,10 +342,10 @@ function draw() {
       background(0);
       background(31, 17, 120);
       noStroke();
-      fill(0, 121, 163);
-      rect(0, width / 18 *17, 800, 900-(width / 18 *17));
+      fill(22, 75, 75);
+      rect(0, (width / 18) * 3, width, (height / 18) *15);
       timer++;
-      textAlign(LEFT);
+      textAlign(LEFT,TOP);
       let greeting = "Happy Holidays!";
       let x1 = 165;
       let y1 = 85;
